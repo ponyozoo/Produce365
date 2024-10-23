@@ -15,7 +15,6 @@ public class Care {
 		this.cost = cost;
 	}
 	
-
 	public Care(String category, int cost) {
 		super();
 		this.category = category;

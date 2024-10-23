@@ -13,24 +13,20 @@ public class JDBCCareDAO implements CareDAO{
 	public boolean insert(Care care) {
 		try(Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement = connection.prepareStatement(
-				"INSERT INTO MEMBER (CATEGORY,COST) VALUES (?,?)")){
+				"INSERT INTO CARE (CATEGORY,COST) VALUES (?,?)")){
 			
-			pStatement.setInt(1, care.getId());
-			pStatement.setString(2, care.getCategory());
-			pStatement.setInt(3, care.getCost());
+			pStatement.setString(1, care.getCategory());
+			pStatement.setInt(2, care.getCost());
 			
 			int affectedRows = pStatement.executeUpdate();
 			if (affectedRows > 0) {
-				System.out.println("success");
-			} else {
-				System.out.println("fail");
+				return true;
 			}
-		}   catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
+			}catch(SQLException e) {
+			 e.printStackTrace();
+			}
+			 return false;
+}
 	@Override
 	public List<Care> findAll() {
 		List<Care> cares = new ArrayList<Care>();
@@ -47,7 +43,6 @@ public class JDBCCareDAO implements CareDAO{
 				cares.add(care);
 }
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		  return cares;
@@ -68,14 +63,14 @@ public class JDBCCareDAO implements CareDAO{
 						rs.getString("CATEGORY"),
 						rs.getInt("COST"));
 				
-				return care;
+			  return care;
 	}
 				 
-			 } catch (SQLException e) {
+			 }catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 	}				
-			   return null;
+			  return null;
 	}
 
 	@Override
@@ -86,7 +81,7 @@ public class JDBCCareDAO implements CareDAO{
 			        {
 			          pStatement.setString(1, care.getCategory());
 			          pStatement.setInt(2, care.getCost());
-			          pStatement.setInt(2, care.getId());
+			          pStatement.setInt(3, care.getId());
 			          
 		              pStatement.executeUpdate();
 			        }
@@ -94,8 +89,6 @@ public class JDBCCareDAO implements CareDAO{
 			        {
 			            e.printStackTrace();
 			        }
-
-
 			        return false;
 }
 
@@ -103,18 +96,19 @@ public class JDBCCareDAO implements CareDAO{
 	public boolean deleteById(int id) {
 		try (Connection conn = DataSource.getDataSource();
 	             PreparedStatement pStatement = conn.prepareStatement(
-	            		 "DELETE FROM CARE WHERE ID= ?"))
+	            		 "DELETE FROM CARE WHERE ID = ?"))
 	        {
-	            pStatement.setInt(1, id);
+	            pStatement.setInt(1, id);    
 	            
-	            pStatement.executeUpdate();
+	      	            
+	            if(pStatement.executeUpdate() > 0) {
+	            	return true;
+	            }            
+
 	        } catch (Exception e)
 	        {
 	            e.printStackTrace();
 }
-
-
 	        return false;
 }
-
 }
