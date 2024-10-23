@@ -2,6 +2,7 @@ package produce365.trainee;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,15 +38,15 @@ public class TraineeServlet extends HttpServlet {
 		String action = uri.substring(lastIndex + 1);
 		request.setCharacterEncoding("UTF-8");
 
-		if (action.equals("input")) {
-
+		if (action.equals("trainees")) {
+			JDBCTraineeDAO traineeDao = new JDBCTraineeDAO();
+			List<Trainee> list = traineeDao.selectAll();
+			request.setAttribute("list", list);
 		} else if (action.equals("save")) {
-
 			JDBCTraineeDAO traineeDao = new JDBCTraineeDAO();
 			Trainee trainee = new Trainee();
-			System.out.println(request.getParameter("birth"));
 
-			trainee.setId(123);
+			trainee.setId(45464);
 			trainee.setName(request.getParameter("name"));
 			trainee.setSex(request.getParameter("sex"));
 			trainee.setBirth(Date.valueOf(request.getParameter("birth")));
@@ -60,11 +61,12 @@ public class TraineeServlet extends HttpServlet {
 
 		String dispatcherUrl = null;
 
-		if (action.equals("input")) {
+		if (action.equals("trainees")) {
+			dispatcherUrl = "/trainee/trainee.jsp";
+		} else if (action.equals("input")) {
 			dispatcherUrl = "/trainee/traineeNew.jsp";
-
 		} else if (action.equals("save")) {
-			dispatcherUrl = "/trainee/traineeNew.jsp";
+			dispatcherUrl = "/trainees";
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(dispatcherUrl);

@@ -29,7 +29,7 @@ public class LoginFilter implements Filter {
 		String action = uri.substring(lastIdx + 1);
 
 		if (login && action.equals("login"))
-			((HttpServletResponse)response).sendRedirect("/produce365/trainee");
+			((HttpServletResponse)response).sendRedirect("/produce365/trainees");
 		else if (login || action.equals("") || (!login && action.equals("login")))
 			chain.doFilter(request, response);
 		else
