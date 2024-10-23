@@ -16,17 +16,17 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement = connection.prepareStatement(
-						"INSERT INTO TRAINEE(NAME, SEX, BIRTH, NATIONALITY, HEIGHT, WEIGHT, HIRE_DATE, PHOTO "
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+						"INSERT INTO TRAINEE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
 
 			pStatement.setInt(1, trainee.getId());
-			pStatement.setString(2, trainee.getName());
-			pStatement.setDate(3, trainee.getBirth());
-			pStatement.setString(4, trainee.getSex());
-			pStatement.setInt(5, trainee.getHeight());
-			pStatement.setInt(6, trainee.getWeight());
-			pStatement.setString(7, trainee.getNationality());
-			pStatement.setDate(8, trainee.getHireDate());
+	        pStatement.setString(2, trainee.getName());
+	        pStatement.setDate(3, trainee.getBirth());
+	        pStatement.setString(4, trainee.getSex());
+	        pStatement.setInt(5, trainee.getHeight());
+	        pStatement.setInt(6, trainee.getWeight());
+	        pStatement.setString(7, trainee.getNationality());
+	        pStatement.setDate(8, trainee.getHireDate());
+	        pStatement.setString(9, trainee.getPhoto());
 
 			int rows = pStatement.executeUpdate();
 
@@ -154,7 +154,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 		List<Trainee> trainees = new ArrayList<>();
 
 		try (Connection connection = DataSource.getDataSource();
-				PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM TRAINEE WHERE SEX = ?")) {
+				PreparedStatement pStatement = connection.prepareStatement("SELECT ID, NAME, PHOTO FROM TRAINEE WHERE SEX = ? ORDER BY ID")) {
 
 			pStatement.setString(1, sex);
 
@@ -189,7 +189,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement = connection
-						.prepareStatement("SELECT * FROM TRAINEE WHERE NATIONALITY = ?")) {
+						.prepareStatement("SELECT ID, NAME, PHOTO TRAINEE WHERE NATIONALITY = ? ORDER BY ID")) {
 
 			pStatement.setString(1, nationality);
 
@@ -245,7 +245,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 		return traineesNoDebut;
 	}
 
-	@Override
+	@Override	//고유국적선택
 	public List<String> selectDistinctNationality() {
 		
 		List<String> nationalites = new ArrayList<>();
@@ -264,3 +264,4 @@ public class JDBCTraineeDAO implements TraineeDAO {
 	}
 
 }
+

@@ -1,0 +1,75 @@
+package produce365.trainee;
+
+import java.io.IOException;
+import java.sql.Date;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@SuppressWarnings("serial")
+@WebServlet({ "/trainees/*" })
+public class TraineeServlet extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		process(request, response);
+
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		process(request, response);
+
+	}
+
+	private void process(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String uri = request.getRequestURI();
+		
+		int lastIndex = uri.lastIndexOf("/"); 
+		String action = uri.substring(lastIndex + 1);
+		request.setCharacterEncoding("UTF-8");
+
+		if (action.equals("input")) {
+
+		} else if (action.equals("save")) {
+
+			JDBCTraineeDAO traineeDao = new JDBCTraineeDAO();
+			Trainee trainee = new Trainee();
+			System.out.println(request.getParameter("birth"));
+
+			trainee.setId(123);
+			trainee.setName(request.getParameter("name"));
+			trainee.setSex(request.getParameter("sex"));
+			trainee.setBirth(Date.valueOf(request.getParameter("birth")));
+			trainee.setNationality(request.getParameter("nationality"));
+			trainee.setHeight(Integer.parseInt(request.getParameter("height")));
+			trainee.setWeight(Integer.parseInt(request.getParameter("weight")));
+			trainee.setHireDate(Date.valueOf(request.getParameter("hireDate")));
+			trainee.setPhoto("photo");
+
+			traineeDao.insert(trainee);
+		}
+
+		String dispatcherUrl = null;
+
+		if (action.equals("input")) {
+			dispatcherUrl = "/trainee/traineeNew.jsp";
+
+		} else if (action.equals("save")) {
+			dispatcherUrl = "/trainee/traineeNew.jsp";
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher(dispatcherUrl);
+		rd.forward(request, response);
+
+	}
+
+}
