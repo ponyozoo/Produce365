@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Lesson Page</title>
+<jsp:include page="/common/link.jsp" />
 </head>
 <body>
 
