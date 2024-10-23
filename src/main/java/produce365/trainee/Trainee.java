@@ -14,24 +14,22 @@ public class Trainee {
 	private Date hireDate;
 	private String photo;
 
-	public Trainee() {
+	public Trainee() {}
+
+	public Trainee(int id) {
+		this.id = id;
 	}
 
-	public Trainee(int id, String name, Date birth, String sex, int height, int weight, String nationality,
-			Date hireDate, String photo) {
-		this.id = id;
+	public Trainee(String name) {
 		this.name = name;
-		this.birth = birth;
-		this.sex = sex;
-		this.height = height;
-		this.weight = weight;
-		this.nationality = nationality;
-		this.hireDate = hireDate;
-		this.photo = photo;
 	}
-	
+
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -96,10 +94,6 @@ public class Trainee {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	@Override
