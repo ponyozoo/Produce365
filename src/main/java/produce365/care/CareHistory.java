@@ -11,7 +11,7 @@ public class CareHistory {
 	private Trainee trainee;
 	
 	public CareHistory() {}
-	
+
 	public CareHistory(int idx, Date careDate, Care care, Trainee trainee) {
 		super();
 		this.idx = idx;
@@ -19,35 +19,42 @@ public class CareHistory {
 		this.care = care;
 		this.trainee = trainee;
 	}
-
+	
 	public int getIdx() {
 		return idx;
 	}
+
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
+
 	public Date getCareDate() {
 		return careDate;
 	}
+
 	public void setCareDate(Date careDate) {
 		this.careDate = careDate;
 	}
+
 	public Care getCare() {
 		return care;
 	}
-	public void setCare_Id(Care care) {
+
+	public void setCare(Care care) {
 		this.care = care;
 	}
+
 	public Trainee getTrainee() {
 		return trainee;
 	}
+
 	public void setTrainee(Trainee trainee) {
 		this.trainee = trainee;
 	}
 
-	//@Override
-	//public String toString() {
-		//return "➤ 날짜: " + this.careDate + " ➤ 종류: " + this.care.getCategory() + " ➤ 연습생: " + this.trainee.getName();
+	@Override
+	public String toString() {
+		return "➤ 날짜: " + this.careDate + " ➤ 종류: " + this.care.getCategory() + " ➤ 연습생: " + this.trainee.getName();
 
-	//}
+	}
 }

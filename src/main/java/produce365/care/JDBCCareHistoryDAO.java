@@ -2,7 +2,9 @@ package produce365.care;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import produce365.trainee.Trainee;
@@ -19,7 +21,7 @@ public class JDBCCareHistoryDAO implements CareHistoryDAO{
 	
 	    	pStatement.setDate(1, careHistory.getCareDate());
 	        pStatement.setInt(2, careHistory.getCare().getId()); 
-	      //  pStatement.setInt(3, careHistory.getTrainee().getId());  
+	        pStatement.setInt(3, careHistory.getTrainee().getId());  
 	        
 	        int rows = pStatement.executeUpdate();
 
@@ -36,8 +38,28 @@ public class JDBCCareHistoryDAO implements CareHistoryDAO{
 
 	@Override
 	public List<CareHistory> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+List<CareHistory> careHistories = new ArrayList<CareHistory>(); 
+		
+		try ( Connection connection = DataSource.getDataSource();
+	          PreparedStatement pStatement = connection.prepareStatement("SELECT H.IDX, H.CARE_DATE, C.CATEGORY, T.NAME FROM CARE_HISTORY H, CARE C, TRAINEE T WHERE H.CARE_ID = C.ID AND H.TRAINEE_ID = T.ID ORDER BY CARE_DATE"); 
+			  ResultSet rs = pStatement.executeQuery()) 
+		{
+		
+			while( rs.next() ) {
+				CareHistory careHistory = new CareHistory();
+				careHistory.setIdx(rs.getInt("IDX"));
+				careHistory.setCareDate(rs.getDate("CARE_DATE"));
+				careHistory.setCare(new Care(rs.getString("CATEGORY")));
+				careHistory.setTrainee(new Trainee(rs.getString("NAME")));
+				
+				careHistories.add(careHistory); 
+			}
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return careHistories; 
 	}
 
 	@Override
