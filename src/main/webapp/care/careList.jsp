@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Care Page</title>
+<title>케어관리</title>
 <jsp:include page="/common/link.jsp" />
 </head>
 <body>
