@@ -10,6 +10,8 @@
 <style>
 	#logo {
 		font-size: 8em;
+		font-family: 'TAEBAEK';
+		font-weight: bold;
 	}
 	
 	button {
@@ -25,7 +27,7 @@
 <body>
 	<div class="d-flex flex-column align-items-center justify-content-center vh-100" style="text-align: center;">
 		<div id="logo">PRODUCE 365</div>
-		<button type="button">로그인</button>
+		<button type="button" onclick="location.href='/produce365/login'">로그인</button>
 	</div>
 </body>
 </html>
