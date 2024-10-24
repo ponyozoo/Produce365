@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import produce365.rating.JDBCRatingDAO;
+import produce365.rating.Rating;
+
 @SuppressWarnings("serial")
 @WebServlet({ "/trainees/*" })
 public class TraineeServlet extends HttpServlet {
@@ -46,7 +49,9 @@ public class TraineeServlet extends HttpServlet {
 			JDBCTraineeDAO traineeDao = new JDBCTraineeDAO();
 			Trainee trainee = new Trainee();
 
-			trainee.setId(45464);
+			int id = 324342;
+
+			trainee.setId(id);
 			trainee.setName(request.getParameter("name"));
 			trainee.setSex(request.getParameter("sex"));
 			trainee.setBirth(Date.valueOf(request.getParameter("birth")));
@@ -58,6 +63,25 @@ public class TraineeServlet extends HttpServlet {
 
 			traineeDao.insert(trainee);
 
+			JDBCRatingDAO ratingDao = new JDBCRatingDAO();
+			Rating rating = new Rating();
+			rating.setTrainee(trainee); // rating객체 안에 trainee를 넣는다
+
+			rating.setGrade(request.getParameter("total"));
+			rating.setCategory("TOTAL");
+			ratingDao.insert(rating);
+
+			rating.setGrade(request.getParameter("vocal"));
+			rating.setCategory("VOCAL");
+			ratingDao.insert(rating);
+			
+			rating.setGrade(request.getParameter("rap"));
+			rating.setCategory("RAP");
+			ratingDao.insert(rating);
+			
+			rating.setGrade(request.getParameter("dance"));
+			rating.setCategory("DANCE");
+			ratingDao.insert(rating);
 		}
 
 		String dispatcherUrl = null;
