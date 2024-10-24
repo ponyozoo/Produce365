@@ -33,8 +33,8 @@ public class TraineeServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String uri = request.getRequestURI();
-		
-		int lastIndex = uri.lastIndexOf("/"); 
+
+		int lastIndex = uri.lastIndexOf("/");
 		String action = uri.substring(lastIndex + 1);
 		request.setCharacterEncoding("UTF-8");
 
@@ -57,6 +57,7 @@ public class TraineeServlet extends HttpServlet {
 			trainee.setPhoto("photo");
 
 			traineeDao.insert(trainee);
+
 		}
 
 		String dispatcherUrl = null;
@@ -68,7 +69,7 @@ public class TraineeServlet extends HttpServlet {
 		} else if (action.equals("save")) {
 			dispatcherUrl = "/trainees";
 		}
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher(dispatcherUrl);
 		rd.forward(request, response);
 
