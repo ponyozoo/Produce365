@@ -10,7 +10,11 @@
 </head>
 <style>
 	#content {
-		margin-top: 100px;
+		margin-top: 130px;
+	}
+	
+	#buttonList {
+		margin-left: 10px;
 	}
 	
 	#newButton {
@@ -34,34 +38,43 @@
 		cursor: pointer;
 		width: 200px;
 		height: 280px;
+		margin: 0 15px 30px 15px;
+		padding: 15px;
 	}
 	
 	.cardImg {
 		width: 100%;
-		height: 100%;
-		padding: 10px;
+		height: 90%;
 		object-fit: cover;
 	}
 	
 	.traineeName {
+		height: 10%;
 		font-weight: bold;
-		margin: 0 10px 10px 10px;
+		padding-top: 10px;
 	}
 </style>
 <body>
 	<jsp:include page="/common/header.jsp" />
-	<div id="content">
-		<div class="text-end pt-4 px-5">
-			<button id="newButton" class="traineeButton"></button>
-			<button id="searchButton" class="traineeButton"></button>
-		</div>
-		<div class="d-flex">
-			<jsp:include page="/common/menu.jsp" />
-			<div class="d-flex my-3">
-				<div class="card shadow-sm">
-					<img class="cardImg" src="https://pbs.twimg.com/media/GUXmYHEboAAl6dF.jpg:large"/>
-					<span class="traineeName">변의주</span>
-				</div>
+	<div id="content" class="d-flex">
+		<jsp:include page="/common/menu.jsp" />
+		<div>
+			<div id="buttonList">
+				<button id="newButton" class="traineeButton" onclick="location.href='trainees/input'"></button>
+				<button id="searchButton" class="traineeButton"></button>
+			</div>
+			<div class="d-flex flex-wrap my-3">
+				<c:if test="${!empty list}">
+					<c:forEach var="trainee" items="${list}">
+						<div class="card shadow-sm">
+							<img class="cardImg" src="${trainee.photo}"/>
+							<span class="traineeName">${trainee.name}</span>
+						</div>
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty list}">
+					<span>연습생이 없습니다.</span>
+				</c:if>
 			</div>
 		</div>		
 	</div>

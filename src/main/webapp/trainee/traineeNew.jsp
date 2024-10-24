@@ -87,17 +87,11 @@
 				</select></td>
 			</tr>
 		</table>
-
-
-		<!-- 	<input type="submit" value="저장하기" />
-	<input type="submit" value="목록으로" /> -->
-
+		
 		<hr />
-
-
+		
 		<button type="button" onclick="checkInput()">저장하기</button>
-
-		<button type="button">목록으로</button>
+		<button type="button" onclick="location.href='trainees'">목록으로</button>
 	</form>
 </body>
 <script>
