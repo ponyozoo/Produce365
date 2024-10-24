@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import produce365.trainee.JDBCTraineeDAO;
 import produce365.trainee.Trainee;
 
 @SuppressWarnings("serial")
@@ -32,42 +33,38 @@ public class CareHistoryServlet extends HttpServlet{
 		String action = uri.substring(lastIndex + 1); //마지막 /이후의 값인 list를 가져오게됌 => action은 list 주소의 따라서 action값이 달라짐
 		System.out.println(action);
 		
-		if (action.equals("insert")) {
+		if (action.equals("input")) {
+			JDBCCareDAO jdbcCareDao = new JDBCCareDAO();
+			List<Care> cares = jdbcCareDao.findAll();
+			req.setAttribute("cares", cares);
+			JDBCTraineeDAO traineeDAO = new JDBCTraineeDAO();
+			List<Trainee> trainees = traineeDAO.selectAll();
+			req.setAttribute("trainees", trainees);
+		}else if (action.equals("insert")) {
 			JDBCCareHistoryDAO JdbcCareHistoryDao = new JDBCCareHistoryDAO();
 			CareHistory careHistory = new CareHistory(
-					Integer.parseInt(req.getParameter("idx")),
-					Date.valueOf(req.getParameter("care_date")),
-					new Care(req.getParameter("c.category")),
-					new Trainee(req.getParameter("t.name")));
+			Date.valueOf(req.getParameter("careDate")),
+			new Care(Integer.parseInt(req.getParameter("category"))),
+			new Trainee(Integer.parseInt(req.getParameter("trainee"))));
 			JdbcCareHistoryDao.insert(careHistory);
 		}else if(action.equals("careHistories")){
 			CareHistoryDAO careHistoryDao = new JDBCCareHistoryDAO();
 			List<CareHistory>careHistories =careHistoryDao.selectAll();
 			req.setAttribute("careHistories",careHistories);
-		}else if(action.equals("selectByTraineeId")) {
-			CareHistoryDAO careHistoryDao = new JDBCCareHistoryDAO();
-			List<CareHistory>careHistories =careHistoryDao.selectByTraineeId(Integer.parseInt(req.getParameter("t.id")));
-			req.setAttribute("careHistories", careHistories);
-		}else if(action.equals("selectByCareId")) {
-			CareHistoryDAO careHistoryDao = new JDBCCareHistoryDAO();
-			List<CareHistory>careHistories =careHistoryDao.selectByCareId(Integer.parseInt(req.getParameter("c.id")));
-			req.setAttribute("careHistories", careHistories);
 		}
 		
 		String dispatcherUrl = null;
 		
-		if (action.equals("careHistories")) {
+		if (action.equals("input")) {
+			dispatcherUrl = "/care/careHistoryNew.jsp";
+		}else if (action.equals("careHistories")) {
 			dispatcherUrl = "/care/careHistoryList.jsp";
-		}else if(action.equals("selectAll")) {
-			dispatcherUrl = "";
-		}else if(action.equals("selectByTraineeId")) {
-			dispatcherUrl = "";
-		}else if(action.equals("selectByCareId")) {
-			dispatcherUrl = "";
+		}else if(action.equals("insert")) {
+			dispatcherUrl = "careHistories";
 		}
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
 	  	 rd.forward(req, resp);
-	}
+}
 	
 	
 }	

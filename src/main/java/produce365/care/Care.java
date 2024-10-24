@@ -8,6 +8,10 @@ public class Care {
 	
 	public Care() {}
 	
+	public Care(int id) {
+		this.id = id;
+	}
+
 	public Care(int id, String category, int cost) {
 		this.id = id;
 		this.category = category;

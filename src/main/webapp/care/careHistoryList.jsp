@@ -10,7 +10,7 @@
 </head>
 <body>
 <form action = "selectAll" method = post>
-<input type='button' class='btn' name='btn' value='추가하기' style="float: right;" onclick = "location.href='insert'">
+<input type='button' class='btn' name='btn' value='추가하기' style="float: right;" onclick = "location.href='input'">
 <c:if test="${!empty careHistories}">
 <table class = "table table-bordered">
 <c:forEach var = "careHistory" items = "${careHistories}">

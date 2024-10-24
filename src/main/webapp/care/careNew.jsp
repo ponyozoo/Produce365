@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>케어 등록</title>
+<title>케어등록</title>
 </head>
 <body>
 	<form action="save" method="post" id="f1">
