@@ -6,7 +6,7 @@ public interface CareHistoryDAO {
 	
 	boolean insert(CareHistory careHistory);
 	List<CareHistory> selectAll();
-	List<CareHistory> selectByTraineeID(int id);
-	List<CareHistory> selectCareAll(int id);
+	List<CareHistory> selectByTraineeId(int id);
+	List<CareHistory> selectByCareId(int id);
 	
 }

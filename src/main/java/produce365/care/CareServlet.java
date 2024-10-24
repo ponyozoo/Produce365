@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 @SuppressWarnings("serial")
 @WebServlet("/cares/*")
 public class CareServlet extends HttpServlet{
@@ -30,7 +29,7 @@ public class CareServlet extends HttpServlet{
 		
 		if (action.equals("input")) {
 			
-		}else if(action.equals("save")) {
+ 		}else if(action.equals("save")) {
 			JDBCCareDAO jdbcCareDao = new JDBCCareDAO();
 			Care care = new Care(req.getParameter("category"),Integer.parseInt(req.getParameter("cost")));
 			jdbcCareDao.insert(care);
