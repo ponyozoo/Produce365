@@ -11,9 +11,14 @@ public class CareHistory {
 	private Trainee trainee;
 	
 	public CareHistory() {}
+	
+	public CareHistory(Date careDate, Care care, Trainee trainee) {
+		this.careDate = careDate;
+		this.care = care;
+		this.trainee = trainee;
+	}
 
 	public CareHistory(int idx, Date careDate, Care care, Trainee trainee) {
-		super();
 		this.idx = idx;
 		this.careDate = careDate;
 		this.care = care;

@@ -9,20 +9,17 @@ public class Care {
 	public Care() {}
 	
 	public Care(int id, String category, int cost) {
-		super();
 		this.id = id;
 		this.category = category;
 		this.cost = cost;
 	}
 	
 	public Care(String category, int cost) {
-		super();
 		this.category = category;
 		this.cost = cost;
 	}
 	
 	public Care(String category) {
-		super();
 		this.category = category;
 	}
 
