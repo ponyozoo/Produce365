@@ -13,25 +13,14 @@
 		margin-top: 130px;
 	}
 	
-	#buttonList {
-		margin-left: 10px;
-	}
-	
 	#newButton {
 		background-image: url(/produce365/resources/newButton.png);
-	}
-	
-	#searchButton {
-		background-image: url(/produce365/resources/searchButton.png);
-	}
-	
-	.traineeButton {
 		background-color: transparent;
 		background-size: cover;
 		border: none;
 		width: 50px;
 		height: 50px;
-		margin: 5px;
+		margin: 5px 5px 5px 15px;
 	}
 	
 	.card {
@@ -48,7 +37,7 @@
 		object-fit: cover;
 	}
 	
-	.traineeName {
+	.debutName {
 		height: 10%;
 		font-weight: bold;
 		padding-top: 10px;
@@ -65,7 +54,7 @@
 					<c:forEach var="debut" items="${list}">
 						<div class="card shadow-sm">
 							<img class="cardImg" src="${debut.photo}"/>
-							<span class="traineeName">${debut.name}</span>
+							<span class="debutName">${debut.name}</span>
 						</div>
 					</c:forEach>
 				</c:if>

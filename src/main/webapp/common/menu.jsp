@@ -4,7 +4,6 @@
 <html>
 <style>
 	#menuList {
-		width: 30%;
 		min-width: 400px;
 		margin-top: 60px;
 	}
@@ -19,19 +18,25 @@
 		margin: 15px 0;
 	}
 	
-	.selectdMenu {
+	.selectedMenu {
 		background-color: #383838;
 		color: white;
 	}
 </style>
 <body>
 	<div id="menuList" class="d-flex flex-column align-items-center">
-		<button class="menuButton selectdMenu">연습생 관리</button>
-		<button class="menuButton">데뷔조 관리</button>
-		<button class="menuButton">케어 관리</button>
-		<button class="menuButton">케어 기록</button>
-		<button class="menuButton">수업 관리</button>
-		<button class="menuButton">수업 기록</button>
+		<button id="trainees" class="menuButton" onclick="location.href='trainees'">연습생 관리</button>
+		<button id="debuts" class="menuButton" onclick="location.href='debuts'">데뷔조 관리</button>
+		<button id="cares" class="menuButton" onclick="location.href='cares'">케어 관리</button>
+		<button id="careHistories" class="menuButton" onclick="location.href='careHistories'">케어 기록</button>
+		<button id="lessons" class="menuButton" onclick="location.href='lessons'">수업 관리</button>
+		<button id="lessonHistories" class="menuButton" onclick="location.href='lessonHistories'">수업 기록</button>
 	</div>
+	
+	<script>
+		const uri = window.location.pathname;
+		const menu = uri.substring(uri.lastIndexOf("/") + 1);
+		document.getElementById(menu).className += ' selectedMenu';
+	</script>
 </body>
 </html>
