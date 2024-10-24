@@ -45,7 +45,7 @@ public class TraineeServlet extends HttpServlet {
 			Trainee trainee = new Trainee();
 			System.out.println(request.getParameter("birth"));
 
-			trainee.setId(123);
+			trainee.setId(134);
 			trainee.setName(request.getParameter("name"));
 			trainee.setSex(request.getParameter("sex"));
 			trainee.setBirth(Date.valueOf(request.getParameter("birth")));
@@ -56,7 +56,10 @@ public class TraineeServlet extends HttpServlet {
 			trainee.setPhoto("photo");
 
 			traineeDao.insert(trainee);
+			
+			
 		}
+		
 
 		String dispatcherUrl = null;
 
