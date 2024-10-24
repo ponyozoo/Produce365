@@ -18,6 +18,20 @@ public class Trainee {
 
 	public Trainee(int id) {
 		this.id = id;
+		
+	}
+
+	public Trainee(int id, String name, Date birth, String sex, int height, int weight, String nationality,
+			Date hireDate, String photo) {
+		this.id = id;
+		this.name = name;
+		this.birth = birth;
+		this.sex = sex;
+		this.height = height;
+		this.weight = weight;
+		this.nationality = nationality;
+		this.hireDate = hireDate;
+		this.photo = photo;
 	}
 
 	public Trainee(String name) {

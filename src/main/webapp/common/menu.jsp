@@ -4,10 +4,13 @@
 <html>
 <style>
 	#menuList {
-		margin: 0px 70px 70px 70px;
+		width: 30%;
+		min-width: 400px;
+		margin-top: 60px;
 	}
 		
 	.menuButton {
+		width: 50%;
 		font-size: 1.5em;
 		border: 2px solid #383838;
 		border-radius: 30px;
@@ -22,7 +25,7 @@
 	}
 </style>
 <body>
-	<div id="menuList" class="d-flex flex-column">
+	<div id="menuList" class="d-flex flex-column align-items-center">
 		<button class="menuButton selectdMenu">연습생 관리</button>
 		<button class="menuButton">데뷔조 관리</button>
 		<button class="menuButton">케어 관리</button>

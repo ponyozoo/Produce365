@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 		if (account != null && account.getPw().equals(_pw)) {
 			HttpSession session = req.getSession();
 			session.setAttribute("account", account.getId());
-			dispatcherUrl = "/trainee";
+			dispatcherUrl = "/trainees";
 		} else {
 			req.setAttribute("msg", "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.");
 			dispatcherUrl = "/login.jsp";
