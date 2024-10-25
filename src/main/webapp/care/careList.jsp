@@ -41,7 +41,7 @@
 		margin: 10px 0;
 	}
 	
-	#careInfoCategory {
+	#careCategory {
 		margin-left: 20px;
 	}
 	
@@ -65,7 +65,7 @@
 				<c:if test="${!empty cares}">
 					<c:forEach var="care" items="${cares}">
 						<div class="d-flex justify-content-between align-items-center careInfo">
-							<div id="careInfoCategory">${care.category}</div>
+							<div id="careCategory">${care.category}</div>
 							<div class="d-flex align-items-center">
 								<div>₩ <fmt:formatNumber value="${care.cost}" pattern="#,###" /></div>
 								<button id="deleteButton" type="button" onclick="location.href='delete?id=${care.id}'"></button>							

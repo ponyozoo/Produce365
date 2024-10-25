@@ -4,27 +4,26 @@ public class Lesson {
 	private int id;
 	private String trainer;
 	private String subject;
-	private int time;
+	private float time;
 
-	public Lesson() {
-	}
+	public Lesson() {}
+	
 	public Lesson(int id) {
-		super();
 		this.id = id;
 	}
+	
 	public Lesson(String subject) {
-		super();
 		this.subject = subject;
 	}
-	public Lesson(int id, String trainer, String subject, int time) {
-		super();
-		this.id = id;
+
+	public Lesson(String trainer, String subject, float time) {
 		this.trainer = trainer;
 		this.subject = subject;
 		this.time = time;
 	}
-	public Lesson(String trainer, String subject, int time) {
-		super();
+
+	public Lesson(int id, String trainer, String subject, float time) {
+		this.id = id;
 		this.trainer = trainer;
 		this.subject = subject;
 		this.time = time;
@@ -54,11 +53,11 @@ public class Lesson {
 		this.subject = subject;
 	}
 
-	public int getTime() {
+	public float getTime() {
 		return time;
 	}
 
-	public void setTime(int time) {
+	public void setTime(float time) {
 		this.time = time;
 	}
 
@@ -66,5 +65,4 @@ public class Lesson {
 	public String toString() {
 		return "Lesson [id=" + id + ", trainer=" + trainer + ", subject=" + subject + ", time=" + time + "]";
 	}
-
 }

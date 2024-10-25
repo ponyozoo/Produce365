@@ -31,7 +31,7 @@
 		margin: 15px 150px 50px 15px;
 	}
 	
-	.careInfo {
+	.careHistory {
 		font-size: 1.5em;
 		font-weight: bold;
 		border: 1px solid lightgrey;
@@ -40,7 +40,7 @@
 		margin: 10px 0;
 	}
 	
-	#careInfoCategory {
+	#careHistoryCategory {
 		width: 50%;
 		margin-left: 13px;
 	}
@@ -60,12 +60,12 @@
 	<div id="content" class="d-flex">
 		<jsp:include page="/common/menu.jsp" />
 		<div id="rightBox">
-			<button id="newButton" onclick="location.href='careHistories/input'"></button>
+			<button id="newButton" onclick="location.href='careHistory/input'"></button>
 			<div id="infoWrapper">
 				<c:if test="${!empty careHistories}">
 					<c:forEach var="careHistory" items="${careHistories}">
-						<div class="d-flex justify-content-between align-items-center careInfo">
-							<div id="careInfoCategory">${careHistory.care.category}</div>
+						<div class="d-flex justify-content-between align-items-center careHistory">
+							<div id="careHistoryCategory">${careHistory.care.category}</div>
 							<div id="careHistoryTrainee">${careHistory.trainee.name}</div>
 							<div id="careHistoryDate">${careHistory.careDate}</div>
 						</div>

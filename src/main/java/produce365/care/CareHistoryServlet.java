@@ -15,7 +15,7 @@ import produce365.trainee.JDBCTraineeDAO;
 import produce365.trainee.Trainee;
 
 @SuppressWarnings("serial")
-@WebServlet("/careHistories/*")
+@WebServlet("/careHistory/*")
 public class CareHistoryServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class CareHistoryServlet extends HttpServlet {
 		int lastIndex = uri.lastIndexOf("/");
 		String action = uri.substring(lastIndex + 1);
 
-		if (action.equals("careHistories")) {
+		if (action.equals("careHistory")) {
 			CareHistoryDAO careHistoryDao = new JDBCCareHistoryDAO();
 			List<CareHistory> careHistories = careHistoryDao.selectAll();
 			req.setAttribute("careHistories", careHistories);
@@ -55,10 +55,10 @@ public class CareHistoryServlet extends HttpServlet {
 
 		if (action.equals("input")) {
 			dispatcherUrl = "/care/careHistoryNew.jsp";
-		} else if (action.equals("careHistories")) {
+		} else if (action.equals("careHistory")) {
 			dispatcherUrl = "/care/careHistoryList.jsp";
 		} else if (action.equals("insert")) {
-			dispatcherUrl = "careHistories";
+			dispatcherUrl = "careHistory";
 		}
 		
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);

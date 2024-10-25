@@ -11,9 +11,9 @@
 <body>
 	<form action="save" method="post" id="f1">
 		<h3>새 수업 정보 등록</h3>
-		<input type="text" placeholder="선생님 성함을 입력해주세요." id="tra" name="trainer"></br>
-		<input type="text" placeholder="수업 과목을 입력해주세요." id="sub" name="subject"></br>
-		<input type="text" placeholder="수업 시간을 입력해주세요." id="ti" name="time"></br>
+		<input type="text" placeholder="선생님 성함을 입력해주세요." id="tra" name="trainer">
+		<input type="text" placeholder="수업 과목을 입력해주세요." id="sub" name="subject">
+		<input type="text" placeholder="수업 시간을 입력해주세요." id="ti" name="time">
 		<button type="button" onclick="checkInput()">추가</button>
 	</form>
 </body>

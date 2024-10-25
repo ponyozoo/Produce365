@@ -28,9 +28,9 @@
 		<button id="trainees" class="menuButton" onclick="location.href='trainees'">연습생 관리</button>
 		<button id="debuts" class="menuButton" onclick="location.href='debuts'">데뷔조 관리</button>
 		<button id="cares" class="menuButton" onclick="location.href='cares'">케어 관리</button>
-		<button id="careHistories" class="menuButton" onclick="location.href='careHistories'">케어 기록</button>
+		<button id="careHistory" class="menuButton" onclick="location.href='careHistory'">케어 기록</button>
 		<button id="lessons" class="menuButton" onclick="location.href='lessons'">수업 관리</button>
-		<button id="lessonHistories" class="menuButton" onclick="location.href='lessonHistories'">수업 기록</button>
+		<button id="lessonHistory" class="menuButton" onclick="location.href='lessonHistory'">수업 기록</button>
 	</div>
 	
 	<script>
