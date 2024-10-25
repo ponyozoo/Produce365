@@ -12,7 +12,12 @@ public class Debut {
 	private Date debutDate;
 	private String photo;
 	
+	
 	public Debut() {
+	}
+	
+	public Debut(int id) {
+		this.id = id;
 	}
 
 	public Debut(int id, String name, int memberCount, String concept, String grade, Date debutDate, String photo) {
@@ -26,7 +31,10 @@ public class Debut {
 		this.photo = photo;
 	}
 
-	
+	public Debut(String photo) {
+		this.photo = photo;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import produce365.trainee.JDBCTraineeDAO;
+import produce365.trainee.Trainee;
+import produce365.trainee.TraineeDAO;
+
 @WebServlet("/debuts/*")
 public class DebutServlet extends HttpServlet{
 	@Override
@@ -45,7 +49,35 @@ public class DebutServlet extends HttpServlet{
 			
 			debutDAO.insert(debut);
 			
-		} 
+		} else if(action.equals("memberInsert")) {
+			//멤버 추가하기 버튼 눌렀을 때.
+			TraineeDAO traineeDAO = new JDBCTraineeDAO();
+			Trainee trainee = new Trainee();
+			
+			trainee.setName(req.getParameter("name"));	
+			
+		} else if(action.equals("findAll")) {
+			DebutDAO debutDAO = new JDBCDebutDAO();
+			req.setAttribute("debuts", debutDAO.findAll());
+			
+		} else if(action.equals("groupPage")) {
+			//데뷔조 상세 페이지
+			
+		}else if(action.equals("update")) {
+			//데뷔조 상세 페이지에서 수정하기 버튼 눌렀을 때
+			DebutDAO debutDAO = new JDBCDebutDAO();
+			Debut debut = new Debut();
+			
+			debut.setName(req.getParameter("name"));
+			debut.setMemberCount(Integer.parseInt(req.getParameter("memberCount")));
+			debut.setConcept(req.getParameter("concept"));
+			debut.setGrade(req.getParameter("grade"));
+			debut.setDebutDate(Date.valueOf(req.getParameter("debutDate")));
+				
+			debutDAO.update(debut);
+		}
+		
+		
 		
 		String dispatcherUrl = null;
 		
@@ -53,7 +85,11 @@ public class DebutServlet extends HttpServlet{
 			dispatcherUrl = "/debut/debutNew.jsp";
 		}else if (action.equals("save")) {
 			dispatcherUrl = "";
-		} 
+		} else if(action.equals("findAll")) {
+			
+		} else if(action.equals("groupPage")) {
+			dispatcherUrl = "/debut/debutUpdate.jsp";
+		}
 		
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
 		rd.forward(req, resp);

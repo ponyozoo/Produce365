@@ -37,39 +37,39 @@
 
 </head>
 <body>
-	<form action="/produce365/debuts/save" method="post" id="form">
-
+	<form action="/produce365/debuts/update" method="post" id="form">
 		<div class="container text-center">
 			<div class="row">
 				<div class="col">
 					<input type="file" name="photo">
 				</div>
 				<div class="col">
+				
 					<table class="table table-bordered">
 						<tr>
 							<td>이름</td>
-							<td><input type="text" id="name" name="name" /></td>
+							<td><input type="text" id="name" name="name" value="${debut.name}"/></td>
 						</tr>
 
 						<tr>
 							<td>인원</td>
-							<td><input type="text" id="memeberCount" name="memberCount" /></td>
+							<td><input type="text" id="memeberCount" name="memberCount" value="${debut.memberCount}"/></td>
 						</tr>
 
 
 						<tr>
 							<td>컨셉</td>
-							<td><input type="text" id="concept" name="concept" /></td>
+							<td><input type="text" id="concept" name="concept" value="${debut.concept}"/></td>
 						</tr>
 
 						<tr>
 							<td>데뷔 예정일</td>
-							<td><input type="date" id="debutDate" name="debutDate" /></td>
+							<td><input type="date" id="debutDate" name="debutDate" value="${debut.debutDate}"/></td>
 						</tr>
 
 						<tr>
 							<td>종합 등급</td>
-							<td><select id="grade" name="grade">
+							<td><select id="grade" name="grade" value="${debut.grade}">
 									<option value="A">A</option>
 									<option value="B">B</option>
 									<option value="C">C</option>
@@ -101,7 +101,10 @@
 		<div class="container text-center">
 			<div class="row">
 				<div class="col">
-					<button type="button" id="save" onclick="checkInput()">저장하기</button>
+					<button type="button" id="save" onclick="checkUpdate()">수정하기</button>
+				</div>
+				<div class="col">
+					<button type="button" id="save" onclick="checkDelete()">삭제하기</button>
 				</div>
 				<div class="col">
 					<button type="button" id="toList" onclick="checkToList()">목록으로</button>
@@ -120,7 +123,9 @@
 
 
 	<script>
-		function checkInput() {
+	
+	
+		function checkUpdate() {
 
 			const name = document.getElementById("name").value;
 			const memeberCount = document.getElementById("memeberCount").value;
