@@ -45,7 +45,7 @@ public class DebutServlet extends HttpServlet{
 			
 			debutDAO.insert(debut);
 			
-		}
+		} 
 		
 		String dispatcherUrl = null;
 		
@@ -53,7 +53,7 @@ public class DebutServlet extends HttpServlet{
 			dispatcherUrl = "/debut/debutNew.jsp";
 		}else if (action.equals("save")) {
 			dispatcherUrl = "";
-		}
+		} 
 		
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
 		rd.forward(req, resp);
