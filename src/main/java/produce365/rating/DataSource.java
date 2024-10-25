@@ -1,4 +1,4 @@
-package produce365.trainee;
+package produce365.rating;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,8 +8,8 @@ public class DataSource  {
 
 		private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 		private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-		private static final String USERNAME = "hoyoung";
-		private static final String PASSWORD = "dragon";
+		private static final String USERNAME = "minseo";
+		private static final String PASSWORD = "a123";
 
 		public static Connection getDataSource() {
 			

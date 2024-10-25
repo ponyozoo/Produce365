@@ -7,18 +7,24 @@ public class Care {
 	private int cost;
 	
 	public Care() {}
+	
+	public Care(int id) {
+		this.id = id;
+	}
 
 	public Care(int id, String category, int cost) {
-		super();
 		this.id = id;
 		this.category = category;
 		this.cost = cost;
 	}
 	
 	public Care(String category, int cost) {
-		super();
 		this.category = category;
 		this.cost = cost;
+	}
+	
+	public Care(String category) {
+		this.category = category;
 	}
 
 	public int getId() {

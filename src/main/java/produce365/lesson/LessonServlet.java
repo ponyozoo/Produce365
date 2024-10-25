@@ -1,4 +1,4 @@
-package produce365.care;
+package produce365.lesson;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,50 +11,52 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet("/cares/*")
-public class CareServlet extends HttpServlet {
-
+@WebServlet("/lessons/*")
+public class LessonServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		process(req, resp);
 	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		process(req, resp);
 	}
-
+	
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uri = req.getRequestURI();
 		int lastIndex = uri.lastIndexOf("/");
 		String action = uri.substring(lastIndex + 1);
-
-		if (action.equals("cares")) {
-			CareDAO careDao = new JDBCCareDAO();
-			List<Care> cares = careDao.findAll();
-			req.setAttribute("cares", cares);
-		} else if (action.equals("save")) {
-			JDBCCareDAO jdbcCareDao = new JDBCCareDAO();
-			Care care = new Care(req.getParameter("category"), Integer.parseInt(req.getParameter("cost")));
-			jdbcCareDao.insert(care);
-		} else if (action.equals("delete")) {
-			CareDAO careDao = new JDBCCareDAO();
-			careDao.deleteById(Integer.parseInt(req.getParameter("id")));
+		
+		if(action.equals("lessons")) {
+			LessonDAO lessonDao = new JDBCLessonDAO();
+			List<Lesson> lessons = lessonDao.findAll();
+			req.setAttribute("lessons", lessons);
+		} else if(action.equals("save")) {
+			JDBCLessonDAO jdbcLessonDAO = new JDBCLessonDAO();
+			Lesson lesson = new Lesson(
+					req.getParameter("trainer"),
+					req.getParameter("subject"),
+					Float.parseFloat(req.getParameter("time")));
+			jdbcLessonDAO.insert(lesson);
+		} else if(action.equals("delete")) {
+			LessonDAO lessonDao = new JDBCLessonDAO();
+			lessonDao.deleteById(Integer.parseInt(req.getParameter("id")));
 		}
-
+		
 		String dispatcherUrl = null;
-
-		if (action.equals("cares")) {
-			dispatcherUrl = "/care/careList.jsp";			
+		
+		if(action.equals("lessons")) {
+			dispatcherUrl = "/lesson/lessonList.jsp";
 		} else if (action.equals("input")) {
-			dispatcherUrl = "/care/careNew.jsp";
-		} else if (action.equals("save")) {
-			dispatcherUrl = "/cares";
-		} else if (action.equals("delete")) {
-			dispatcherUrl = "/cares";
+			dispatcherUrl = "/lesson/lessonNew.jsp";
+		} else if(action.equals("save")) {
+			dispatcherUrl = "/lessons/findAll";
+		} else if(action.equals("delete")) {
+			dispatcherUrl = "/lessons/findAll";
 		}
-
+		
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
 		rd.forward(req, resp);
-	}
+	}	
 }

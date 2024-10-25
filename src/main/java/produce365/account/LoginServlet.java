@@ -25,18 +25,14 @@ public class LoginServlet extends HttpServlet {
 		
 		JDBCAccountDAO accountDao = new JDBCAccountDAO();
 		Account account = accountDao.selectById(_id);
-		String dispatcherUrl = null;
 		
 		if (account != null && account.getPw().equals(_pw)) {
 			HttpSession session = req.getSession();
 			session.setAttribute("account", account.getId());
-			dispatcherUrl = "/trainees";
+			resp.sendRedirect("/produce365/trainees");
 		} else {
 			req.setAttribute("msg", "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.");
-			dispatcherUrl = "/login.jsp";
+			req.getRequestDispatcher("/login.jsp").forward(req, resp);
 		}
-		
-		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
-		rd.forward(req, resp);
 	}
 }

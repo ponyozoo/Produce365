@@ -5,13 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>케어 등록</title>
+<title>케어등록</title>
+<jsp:include page="/common/link.jsp" />
 </head>
 <body>
 	<form action="save" method="post" id="f1">
 		<h3>새 케어 정보 등록</h3>
-		<input type="text" placeholder="케어 항목을 입력해주세요." id="category" name ="category">
-		<input type="text" placeholder="케어 가격을 입력해주세요." id="cost" name ="cost"></br>
+		<input type="text" placeholder="케어 항목을 입력해주세요." id="category" name="category">
+		<input type="text" placeholder="케어 가격을 입력해주세요." id="cost" name="cost">
 		<button type="button" onclick="checkInput()">추가하기</button>
 	</form>
 </body>
@@ -20,7 +21,7 @@
 		const category = document.getElementById("category").value;
 		const cost = document.getElementById("cost").value;
 		const form = document.getElementById("f1");
-		
+
 		if (category.trim() == "" || cost.trim() == "") {
 			alert("등록을 위한 값을 설정해 주세요.");
 		} else {

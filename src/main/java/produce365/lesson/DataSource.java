@@ -1,4 +1,4 @@
-package produce365.care;
+package produce365.lesson;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
