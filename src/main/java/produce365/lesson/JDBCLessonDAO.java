@@ -15,11 +15,11 @@ public class JDBCLessonDAO implements LessonDAO {
 	public boolean insert(Lesson lesson) {
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement = connection
-						.prepareStatement("INSERT INTO LESSON (TRAINER, SUBJECT, TIME) VALUES (?,?,?)")) {
+						.prepareStatement("INSERT INTO LESSON (TRAINER, SUBJECT, TIME) VALUES (?, ?, ?)")) {
 
 			pStatement.setString(1, lesson.getTrainer());
 			pStatement.setString(2, lesson.getSubject());
-			pStatement.setInt(3, lesson.getTime());
+			pStatement.setFloat(3, lesson.getTime());
 
 			int affectedRows = pStatement.executeUpdate();
 			if (affectedRows > 0) {
@@ -43,7 +43,7 @@ public class JDBCLessonDAO implements LessonDAO {
 						rs.getInt("ID"), 
 						rs.getString("TRAINER"), 
 						rs.getString("SUBJECT"),
-						rs.getInt("TIME"));
+						rs.getFloat("TIME"));
 
 				lessons.add(lesson);
 			}

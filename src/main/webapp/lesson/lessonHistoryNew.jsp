@@ -42,6 +42,7 @@
 	function checkInput() {
 		const date = document.getElementById("lessonDate").value;
 		const form = document.getElementById("f2");
+		
 		if (date.trim() == "") {
 			alert("값을 입력해 주세요.");
 		} else {

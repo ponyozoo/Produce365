@@ -15,7 +15,7 @@ import produce365.trainee.JDBCTraineeDAO;
 import produce365.trainee.Trainee;
 
 @SuppressWarnings("serial")
-@WebServlet("/careHistories/*")
+@WebServlet("/careHistory/*")
 public class CareHistoryServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,11 +29,14 @@ public class CareHistoryServlet extends HttpServlet {
 
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uri = req.getRequestURI();
-		int lastIndex = uri.lastIndexOf("/");// 마지막 /를 가져오는것
-		String action = uri.substring(lastIndex + 1); // 마지막 /이후의 값인 list를 가져오게됌 => action은 list 주소의 따라서 action값이 달라짐
-		System.out.println(action);
+		int lastIndex = uri.lastIndexOf("/");
+		String action = uri.substring(lastIndex + 1);
 
-		if (action.equals("input")) {
+		if (action.equals("careHistory")) {
+			CareHistoryDAO careHistoryDao = new JDBCCareHistoryDAO();
+			List<CareHistory> careHistories = careHistoryDao.selectAll();
+			req.setAttribute("careHistories", careHistories);
+		} else if (action.equals("input")) {
 			JDBCCareDAO jdbcCareDao = new JDBCCareDAO();
 			List<Care> cares = jdbcCareDao.findAll();
 			req.setAttribute("cares", cares);
@@ -46,23 +49,19 @@ public class CareHistoryServlet extends HttpServlet {
 					new Care(Integer.parseInt(req.getParameter("category"))),
 					new Trainee(Integer.parseInt(req.getParameter("trainee"))));
 			JdbcCareHistoryDao.insert(careHistory);
-		} else if (action.equals("careHistories")) {
-			CareHistoryDAO careHistoryDao = new JDBCCareHistoryDAO();
-			List<CareHistory> careHistories = careHistoryDao.selectAll();
-			req.setAttribute("careHistories", careHistories);
 		}
 
 		String dispatcherUrl = null;
 
 		if (action.equals("input")) {
 			dispatcherUrl = "/care/careHistoryNew.jsp";
-		} else if (action.equals("careHistories")) {
+		} else if (action.equals("careHistory")) {
 			dispatcherUrl = "/care/careHistoryList.jsp";
 		} else if (action.equals("insert")) {
-			dispatcherUrl = "careHistories";
+			dispatcherUrl = "careHistory";
 		}
+		
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
 		rd.forward(req, resp);
 	}
-
 }

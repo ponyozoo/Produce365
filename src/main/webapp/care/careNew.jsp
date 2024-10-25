@@ -12,7 +12,7 @@
 	<form action="save" method="post" id="f1">
 		<h3>새 케어 정보 등록</h3>
 		<input type="text" placeholder="케어 항목을 입력해주세요." id="category" name="category">
-		<input type="text" placeholder="케어 가격을 입력해주세요." id="cost" name="cost"></br>
+		<input type="text" placeholder="케어 가격을 입력해주세요." id="cost" name="cost">
 		<button type="button" onclick="checkInput()">추가하기</button>
 	</form>
 </body>
