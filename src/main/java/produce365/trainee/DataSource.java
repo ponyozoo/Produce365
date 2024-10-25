@@ -8,8 +8,8 @@ public class DataSource  {
 
 		private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 		private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-		private static final String USERNAME = "produce365";
-		private static final String PASSWORD = "a1234";
+		private static final String USERNAME = "hoyoung";
+		private static final String PASSWORD = "dragon";
 
 		public static Connection getDataSource() {
 			

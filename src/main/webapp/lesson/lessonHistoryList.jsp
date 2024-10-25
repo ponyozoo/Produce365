@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>케어 관리</title>
+	<title>수업 기록</title>
 	<jsp:include page="/common/link.jsp" />
 </head>
 <style>
@@ -32,27 +31,28 @@
 		margin: 15px 150px 50px 15px;
 	}
 	
-	.careInfo {
+	.lessonHistory {
 		font-size: 1.5em;
 		font-weight: bold;
 		border: 1px solid lightgrey;
 		border-radius: 10px;
-		padding: 10px;
+		padding: 17px;
 		margin: 10px 0;
 	}
 	
-	#careCategory {
-		margin-left: 20px;
+	#lessonHistorySubject {
+		width: 50%;
+		margin-left: 13px;
 	}
 	
-	#deleteButton {
-		background-image: url(/produce365/resources/deleteButton.png);
-		background-color: transparent;
-		background-size: cover;
-		border: none;
-		width: 40px;
-		height: 40px;
-		margin: 5px 20px 5px 50px;
+	#lesssonHistoryTrainee {
+		width: 30%;
+	}
+	
+	#lessonHistoryDate {
+		text-align: right;
+		width: 20%;
+		margin-right: 13px;
 	}
 </style>
 <body>
@@ -60,16 +60,14 @@
 	<div id="content" class="d-flex">
 		<jsp:include page="/common/menu.jsp" />
 		<div id="rightBox">
-			<button id="newButton" onclick="location.href='cares/input'"></button>
+			<button id="newButton" onclick="location.href='lessonHistory/input'"></button>
 			<div id="infoWrapper">
-				<c:if test="${!empty cares}">
-					<c:forEach var="care" items="${cares}">
-						<div class="d-flex justify-content-between align-items-center careInfo">
-							<div id="careCategory">${care.category}</div>
-							<div class="d-flex align-items-center">
-								<div>₩ <fmt:formatNumber value="${care.cost}" pattern="#,###" /></div>
-								<button id="deleteButton" type="button" onclick="location.href='delete?id=${care.id}'"></button>							
-							</div>
+				<c:if test="${!empty lessonHistories}">
+					<c:forEach var="lessonHistory" items="${lessonHistories}">
+						<div class="d-flex justify-content-between align-items-center lessonHistory">
+							<div id="lessonHistorySubject">${lessonHistory.lesson.subject}</div>
+							<div id="lesssonHistoryTrainee">${lessonHistory.trainee.name}</div>
+							<div id="lessonHistoryDate">${lessonHistory.lessonDate}</div>
 						</div>
 					</c:forEach>
 				</c:if>
