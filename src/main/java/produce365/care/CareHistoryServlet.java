@@ -16,12 +16,12 @@ import produce365.trainee.Trainee;
 
 @SuppressWarnings("serial")
 @WebServlet("/careHistories/*")
-public class CareHistoryServlet extends HttpServlet{
+public class CareHistoryServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		process(req, resp);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		process(req, resp);
@@ -29,10 +29,10 @@ public class CareHistoryServlet extends HttpServlet{
 
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uri = req.getRequestURI();
-		int lastIndex = uri.lastIndexOf("/");//마지막 /를 가져오는것
-		String action = uri.substring(lastIndex + 1); //마지막 /이후의 값인 list를 가져오게됌 => action은 list 주소의 따라서 action값이 달라짐
+		int lastIndex = uri.lastIndexOf("/");// 마지막 /를 가져오는것
+		String action = uri.substring(lastIndex + 1); // 마지막 /이후의 값인 list를 가져오게됌 => action은 list 주소의 따라서 action값이 달라짐
 		System.out.println(action);
-		
+
 		if (action.equals("input")) {
 			JDBCCareDAO jdbcCareDao = new JDBCCareDAO();
 			List<Care> cares = jdbcCareDao.findAll();
@@ -40,31 +40,29 @@ public class CareHistoryServlet extends HttpServlet{
 			JDBCTraineeDAO traineeDAO = new JDBCTraineeDAO();
 			List<Trainee> trainees = traineeDAO.selectAll();
 			req.setAttribute("trainees", trainees);
-		}else if (action.equals("insert")) {
+		} else if (action.equals("insert")) {
 			JDBCCareHistoryDAO JdbcCareHistoryDao = new JDBCCareHistoryDAO();
-			CareHistory careHistory = new CareHistory(
-			Date.valueOf(req.getParameter("careDate")),
-			new Care(Integer.parseInt(req.getParameter("category"))),
-			new Trainee(Integer.parseInt(req.getParameter("trainee"))));
+			CareHistory careHistory = new CareHistory(Date.valueOf(req.getParameter("careDate")),
+					new Care(Integer.parseInt(req.getParameter("category"))),
+					new Trainee(Integer.parseInt(req.getParameter("trainee"))));
 			JdbcCareHistoryDao.insert(careHistory);
-		}else if(action.equals("careHistories")){
+		} else if (action.equals("careHistories")) {
 			CareHistoryDAO careHistoryDao = new JDBCCareHistoryDAO();
-			List<CareHistory>careHistories =careHistoryDao.selectAll();
-			req.setAttribute("careHistories",careHistories);
+			List<CareHistory> careHistories = careHistoryDao.selectAll();
+			req.setAttribute("careHistories", careHistories);
 		}
-		
+
 		String dispatcherUrl = null;
-		
+
 		if (action.equals("input")) {
 			dispatcherUrl = "/care/careHistoryNew.jsp";
-		}else if (action.equals("careHistories")) {
+		} else if (action.equals("careHistories")) {
 			dispatcherUrl = "/care/careHistoryList.jsp";
-		}else if(action.equals("insert")) {
+		} else if (action.equals("insert")) {
 			dispatcherUrl = "careHistories";
 		}
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
-	  	 rd.forward(req, resp);
+		rd.forward(req, resp);
+	}
+
 }
-	
-	
-}	
