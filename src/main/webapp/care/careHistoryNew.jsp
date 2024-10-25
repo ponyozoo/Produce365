@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>케어기록추가</title>
+<jsp:include page="/common/link.jsp" />
 </head>
 <body>
 	<h3>케어 기록 추가</h3>
