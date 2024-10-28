@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,10 @@
 				</div>
 				<div class="col">
 				
+					<input type="text" id="id" name="id" value="${debut.id}" hidden="hidden"/>
+					
 					<table class="table table-bordered">
+					
 						<tr>
 							<td>이름</td>
 							<td><input type="text" id="name" name="name" value="${debut.name}"/></td>
@@ -69,7 +73,7 @@
 
 						<tr>
 							<td>종합 등급</td>
-							<td><select id="grade" name="grade" value="${debut.grade}">
+							<td><select id="grade" name="grade">
 									<option value="A">A</option>
 									<option value="B">B</option>
 									<option value="C">C</option>
@@ -83,11 +87,12 @@
 							<td>멤버목록</td>
 							<td>
 								<!-- 선택된 멤버 이름 가져오기 --> 
-								<c:if test="${!empty trinees}">
-									<c:forEach var="trainee" items="${trinees}">
+								<c:if test="${!empty trainees}">
+									<c:forEach var="trainee" items="${trainees}">
 										<span class="traineeName">${trainee.name}</span>
 									</c:forEach>
-								</c:if> <c:if test="${empty trinees}">
+								</c:if> 
+								<c:if test="${empty trainees}">
 									<span>데뷔멤버가 없습니다.</span>
 								</c:if>
 								<button type="button" id="DMSModal-open">멤버 선택</button>
@@ -100,15 +105,19 @@
 
 		<div class="container text-center">
 			<div class="row">
+			
 				<div class="col">
 					<button type="button" id="save" onclick="checkUpdate()">수정하기</button>
 				</div>
+				
 				<div class="col">
-					<button type="button" id="save" onclick="checkDelete()">삭제하기</button>
+					<button type="button" name="delete" id="delete" onclick="checkDelete()">삭제하기</button>
 				</div>
+				
 				<div class="col">
-					<button type="button" id="toList" onclick="checkToList()">목록으로</button>
+					<button type="button" id="toList" onclick="">목록으로</button>
 				</div>
+			
 			</div>
 		</div>
 
@@ -138,7 +147,18 @@
 					&& debutDate != "" && grade != "") {
 				form.submit();
 			} else {
-				alert("다시 입력해~");
+				alert("다시 입력하세요!");
+			}
+		}
+		
+		function checkDelete() {
+			const id = document.getElementById("id").value;
+			const form = document.getElementById("form")
+			
+			if(id !=""){
+				form.submit();
+			}else {
+				alert("다시 입력하세요!");
 			}
 		}
 		

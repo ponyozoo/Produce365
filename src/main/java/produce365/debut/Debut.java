@@ -30,6 +30,18 @@ public class Debut {
 		this.debutDate = debutDate;
 		this.photo = photo;
 	}
+	
+	
+	
+	public Debut(String name, int memberCount, String concept, String grade, Date debutDate, int id) {
+		super();
+		this.name = name;
+		this.memberCount = memberCount;
+		this.concept = concept;
+		this.grade = grade;
+		this.debutDate = debutDate;
+		this.id = id;
+	}
 
 	public Debut(String photo) {
 		this.photo = photo;
