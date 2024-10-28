@@ -42,7 +42,7 @@ public class JDBCCareHistoryDAO implements CareHistoryDAO {
 
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement = connection.prepareStatement(
-						"SELECT H.IDX, H.CARE_DATE, C.CATEGORY, T.NAME FROM CARE_HISTORY H, CARE C, TRAINEE T WHERE H.CARE_ID = C.ID AND H.TRAINEE_ID = T.ID ORDER BY CARE_DATE");
+						"SELECT H.IDX, H.CARE_DATE, C.CATEGORY, T.NAME FROM CARE_HISTORY H, CARE C, TRAINEE T WHERE H.CARE_ID = C.ID AND H.TRAINEE_ID = T.ID ORDER BY CARE_DATE DESC");
 				ResultSet rs = pStatement.executeQuery()) {
 
 			while (rs.next()) {
