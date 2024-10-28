@@ -43,7 +43,7 @@
 				<option value="0">연습생이 없습니다.</option>
 			</c:if>
 		</select>
-		<input type="date" name="careDate" id="careDate">
+		<input type="date" name="careDate" id="historyDate">
 		<div id="msg"></div>
 		<div id="modalButtons">
 			<button id="saveButton" type="button" onclick="checkInput()">추가</button>
@@ -57,7 +57,7 @@
 		const form = document.getElementById("f2");
 		const care = document.getElementById("selectCare").value;
 		const trainee = document.getElementById("selectTrainee").value;
-		const date = document.getElementById("careDate").value;
+		const date = document.getElementById("historyDate").value;
 		
 		if (care == "0") {
 			msg.innerText = "케어 정보를 선택해주세요.";			
