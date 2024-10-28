@@ -32,37 +32,33 @@ public class LessonHistoryServlet extends HttpServlet{
 		int lastIndex = uri.lastIndexOf("/");
 		String action = uri.substring(lastIndex + 1);
 		
-		if(action.equals("lessonHistory")) {
+		if (action.equals("lessonHistory")) {
 			LessonHistoryDAO lessonHistoryDao = new JDBCLessonHistoryDAO();
 			List<LessonHistory> lessonHistories = lessonHistoryDao.selectAll();
 			req.setAttribute("lessonHistories", lessonHistories);
-		} else if(action.equals("input")) {
+			
 			JDBCLessonDAO jdbcLessonDao = new JDBCLessonDAO();
 			List<Lesson> lessons = jdbcLessonDao.findAll();
 			req.setAttribute("lessons", lessons);
+			
 			JDBCTraineeDAO jdbcTraineeDao = new JDBCTraineeDAO();
 			List<Trainee> trainees = jdbcTraineeDao.selectAll();
 			req.setAttribute("trainees",trainees);
-		} else if(action.equals("insert")) {
+			
+			RequestDispatcher rd = req.getRequestDispatcher("/lesson/lessonHistoryList.jsp");
+			rd.forward(req, resp);
+		} else if(action.equals("save")) {
 			JDBCLessonHistoryDAO JdbcLessonHistoryDao = new JDBCLessonHistoryDAO();
+			
 			LessonHistory lessonHistory = new LessonHistory(
 					Date.valueOf(req.getParameter("lessonDate")),
 					new Lesson(Integer.parseInt(req.getParameter("subject"))),
 					new Trainee(Integer.parseInt(req.getParameter("trainee"))));
+			
 			JdbcLessonHistoryDao.insert(lessonHistory);
+			
+			resp.sendRedirect("/produce365/lessonHistory");
+			return ;
 		}
-		
-		String dispatcherUrl = null;
-		
-		if(action.equals("lessonHistory")){
-			dispatcherUrl = "/lesson/lessonHistoryList.jsp";
-		} else if (action.equals("input")) {
-			dispatcherUrl = "/lesson/lessonHistoryNew.jsp";
-		} else if(action.equals("insert")) {
-			dispatcherUrl = "lessonHistory";
-		}
-		
-		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
-		rd.forward(req, resp);
 	}
 }

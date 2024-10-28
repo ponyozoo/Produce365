@@ -7,13 +7,14 @@
 	#title {
 		font-size: 2.5em;
 		font-weight: bold;
-		margin-bottom: 70px;
+		margin-bottom: 50px;
 	}
 	
 	#f2 select {
-		width: 80%;
+		width: 60%;
+		padding: 15px 20px;
 		margin: 10px 0;
-		font-size: 1.2em;
+		font-size: 1.3em;
 	}
 	
 	#msg {

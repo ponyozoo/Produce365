@@ -75,18 +75,18 @@
 	#historyDate{
 		background-color : #383838;
 		padding: 15px;
-		font-family : "Robot Mono", monospace;
 		color : #ffffff;
 		font-size : 18px;
 		border : none;
 		outline : none;
 		border-radius : 5px;
+		margin: 20px 0;
 	}
 	
 	::-webkit-calendar-picker-indicator{
-	background-color : #ffffff;
-	padding : 5px;
-	cursor : pointer;
-	border-radius : 3px;
+		background-color : #ffffff;
+		padding : 5px;
+		cursor : pointer;
+		border-radius : 3px;
 	}
 </style>
