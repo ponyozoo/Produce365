@@ -9,7 +9,7 @@
 	<title>케어 관리</title>
 	<jsp:include page="/common/link.jsp" />
 </head>
-<style>
+<style>	
 	#content {
 		margin-top: 130px;
 	}
@@ -57,10 +57,15 @@
 </style>
 <body>
 	<jsp:include page="/common/header.jsp" />
+	<div class="modal">
+	    <div class="modal_popup">
+	        <jsp:include page="/care/careNew.jsp" />
+	    </div>
+	</div>
 	<div id="content" class="d-flex">
 		<jsp:include page="/common/menu.jsp" />
 		<div id="rightBox">
-			<button id="newButton" onclick="location.href='cares/input'"></button>
+			<button id="newButton"></button>
 			<div id="infoWrapper">
 				<c:if test="${!empty cares}">
 					<c:forEach var="care" items="${cares}">
@@ -68,7 +73,7 @@
 							<div id="careCategory">${care.category}</div>
 							<div class="d-flex align-items-center">
 								<div>₩ <fmt:formatNumber value="${care.cost}" pattern="#,###" /></div>
-								<button id="deleteButton" type="button" onclick="location.href='delete?id=${care.id}'"></button>							
+								<button id="deleteButton" type="button" onclick="location.href='cares/delete?id=${care.id}'"></button>							
 							</div>
 						</div>
 					</c:forEach>
@@ -76,5 +81,19 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		const modal = document.querySelector('.modal');
+		const modalOpen = document.getElementById("newButton");
+		const modalClose = document.getElementById("closeButton");
+	
+		modalOpen.addEventListener('click',function(){
+		    modal.style.display = 'block';
+		});
+		
+		modalClose.addEventListener('click',function(){
+		    modal.style.display = 'none';
+		});
+	</script>
 </body>
 </html>

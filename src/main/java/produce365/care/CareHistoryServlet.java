@@ -36,14 +36,13 @@ public class CareHistoryServlet extends HttpServlet {
 			CareHistoryDAO careHistoryDao = new JDBCCareHistoryDAO();
 			List<CareHistory> careHistories = careHistoryDao.selectAll();
 			req.setAttribute("careHistories", careHistories);
-		} else if (action.equals("input")) {
 			JDBCCareDAO jdbcCareDao = new JDBCCareDAO();
 			List<Care> cares = jdbcCareDao.findAll();
 			req.setAttribute("cares", cares);
 			JDBCTraineeDAO traineeDAO = new JDBCTraineeDAO();
 			List<Trainee> trainees = traineeDAO.selectAll();
 			req.setAttribute("trainees", trainees);
-		} else if (action.equals("insert")) {
+		} else if (action.equals("save")) {
 			JDBCCareHistoryDAO JdbcCareHistoryDao = new JDBCCareHistoryDAO();
 			CareHistory careHistory = new CareHistory(Date.valueOf(req.getParameter("careDate")),
 					new Care(Integer.parseInt(req.getParameter("category"))),
@@ -53,11 +52,9 @@ public class CareHistoryServlet extends HttpServlet {
 
 		String dispatcherUrl = null;
 
-		if (action.equals("input")) {
-			dispatcherUrl = "/care/careHistoryNew.jsp";
-		} else if (action.equals("careHistory")) {
+		if (action.equals("careHistory")) {
 			dispatcherUrl = "/care/careHistoryList.jsp";
-		} else if (action.equals("insert")) {
+		} else if (action.equals("save")) {
 			dispatcherUrl = "careHistory";
 		}
 		

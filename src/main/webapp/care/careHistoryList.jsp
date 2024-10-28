@@ -57,10 +57,15 @@
 </style>
 <body>
 	<jsp:include page="/common/header.jsp" />
+	<div class="modal">
+	    <div class="modal_popup">
+	        <jsp:include page="/care/careHistoryNew.jsp" />
+	    </div>
+	</div>
 	<div id="content" class="d-flex">
 		<jsp:include page="/common/menu.jsp" />
 		<div id="rightBox">
-			<button id="newButton" onclick="location.href='careHistory/input'"></button>
+			<button id="newButton"></button>
 			<div id="infoWrapper">
 				<c:if test="${!empty careHistories}">
 					<c:forEach var="careHistory" items="${careHistories}">
@@ -74,5 +79,19 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		const modal = document.querySelector('.modal');
+		const modalOpen = document.getElementById("newButton");
+		const modalClose = document.getElementById("closeButton");
+	
+		modalOpen.addEventListener('click',function(){
+		    modal.style.display = 'block';
+		});
+		
+		modalClose.addEventListener('click',function(){
+		    modal.style.display = 'none';
+		});
+	</script>
 </body>
 </html>

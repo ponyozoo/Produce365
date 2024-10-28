@@ -25,6 +25,8 @@ public class CareServlet extends HttpServlet {
 	}
 
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		
 		String uri = req.getRequestURI();
 		int lastIndex = uri.lastIndexOf("/");
 		String action = uri.substring(lastIndex + 1);
@@ -37,9 +39,13 @@ public class CareServlet extends HttpServlet {
 			JDBCCareDAO jdbcCareDao = new JDBCCareDAO();
 			Care care = new Care(req.getParameter("category"), Integer.parseInt(req.getParameter("cost")));
 			jdbcCareDao.insert(care);
+			resp.sendRedirect("/produce365/cares");
+			return ;
 		} else if (action.equals("delete")) {
 			CareDAO careDao = new JDBCCareDAO();
 			careDao.deleteById(Integer.parseInt(req.getParameter("id")));
+			resp.sendRedirect("/produce365/cares");
+			return ;
 		}
 
 		String dispatcherUrl = null;
@@ -48,10 +54,6 @@ public class CareServlet extends HttpServlet {
 			dispatcherUrl = "/care/careList.jsp";			
 		} else if (action.equals("input")) {
 			dispatcherUrl = "/care/careNew.jsp";
-		} else if (action.equals("save")) {
-			dispatcherUrl = "/cares";
-		} else if (action.equals("delete")) {
-			dispatcherUrl = "/cares";
 		}
 
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
