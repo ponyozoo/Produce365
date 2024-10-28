@@ -36,29 +36,28 @@ public class CareHistoryServlet extends HttpServlet {
 			CareHistoryDAO careHistoryDao = new JDBCCareHistoryDAO();
 			List<CareHistory> careHistories = careHistoryDao.selectAll();
 			req.setAttribute("careHistories", careHistories);
+			
 			JDBCCareDAO jdbcCareDao = new JDBCCareDAO();
 			List<Care> cares = jdbcCareDao.findAll();
 			req.setAttribute("cares", cares);
+			
 			JDBCTraineeDAO traineeDAO = new JDBCTraineeDAO();
 			List<Trainee> trainees = traineeDAO.selectAll();
 			req.setAttribute("trainees", trainees);
+			
+			RequestDispatcher rd = req.getRequestDispatcher("/care/careHistoryList.jsp");
+			rd.forward(req, resp);
 		} else if (action.equals("save")) {
 			JDBCCareHistoryDAO JdbcCareHistoryDao = new JDBCCareHistoryDAO();
+			
 			CareHistory careHistory = new CareHistory(Date.valueOf(req.getParameter("careDate")),
 					new Care(Integer.parseInt(req.getParameter("category"))),
 					new Trainee(Integer.parseInt(req.getParameter("trainee"))));
+			
 			JdbcCareHistoryDao.insert(careHistory);
+			
+			resp.sendRedirect("/produce365/careHistory");
+			return ;
 		}
-
-		String dispatcherUrl = null;
-
-		if (action.equals("careHistory")) {
-			dispatcherUrl = "/care/careHistoryList.jsp";
-		} else if (action.equals("save")) {
-			dispatcherUrl = "careHistory";
-		}
-		
-		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
-		rd.forward(req, resp);
 	}
 }
