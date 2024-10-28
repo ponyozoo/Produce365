@@ -35,7 +35,7 @@ public class JDBCLessonDAO implements LessonDAO {
 	public List<Lesson> findAll() {
 		List<Lesson> lessons = new ArrayList<Lesson>();
 		try (Connection connection = DataSource.getDataSource();
-				PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM LESSON");
+				PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM LESSON ORDER BY ID DESC");
 				ResultSet rs = pStatement.executeQuery()) {
 
 			while (rs.next()) {
