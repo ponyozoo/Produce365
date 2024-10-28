@@ -32,7 +32,7 @@ public class JDBCCareDAO implements CareDAO{
 		List<Care> cares = new ArrayList<Care>();
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement = connection.prepareStatement(
-				 "SELECT * FROM CARE");
+				 "SELECT * FROM CARE ORDER BY ID DESC");
 				ResultSet rs = pStatement.executeQuery()) {
 			
 			while(rs.next()) {
@@ -52,7 +52,7 @@ public class JDBCCareDAO implements CareDAO{
 	public Care findById(int id) {
 		 try (Connection connection = DataSource.getDataSource();
 		          PreparedStatement pStatement = connection.prepareStatement(
-		            		 "SELECT * FROM CARE WHERE ID = ? ");
+		            		 "SELECT * FROM CARE WHERE ID = ?");
 					 ){
 				 pStatement.setInt(1, id);
 				 ResultSet rs = pStatement.executeQuery();
@@ -67,7 +67,6 @@ public class JDBCCareDAO implements CareDAO{
 	}
 				 
 			 }catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 	}				
 			  return null;
