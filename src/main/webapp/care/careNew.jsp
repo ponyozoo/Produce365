@@ -17,7 +17,6 @@
 		padding: 20px;
 		margin: 10px 0;
 		font-size: 1.5em;
-		-webkit-appearance: none;
 	}
 	
 	#msg {
@@ -43,9 +42,9 @@
 		const msg = document.getElementById("msg");
 		const form = document.getElementById("f1");
 
-		if (category == "")
+		if (category.trim() == "")
 			msg.innerText = "케어 항목을 입력해주세요.";
-		else if (cost == "" || cost < 0)
+		else if (cost.trim() == "" || cost.trim() < 0)
 			msg.innerText = "케어 가격을 정확히 입력해주세요.";
 		else
 			form.submit();

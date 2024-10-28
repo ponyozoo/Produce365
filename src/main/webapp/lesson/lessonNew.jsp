@@ -3,18 +3,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>레슨 등록</title>
-<jsp:include page="/common/link.jsp" />
-</head>
+<style>
+	#title {
+		font-size: 2.5em;
+		font-weight: bold;
+		margin-bottom: 40px;
+	}
+	
+	#tra, #sub, #ti {
+		width: 80%;
+		border: 1px solid #383838;
+		border-radius: 20px;
+		padding: 20px;
+		margin: 10px 0;
+		font-size: 1.5em;
+	}
+</style>
 <body>
-	<form action="save" method="post" id="f1">
-		<h3>새 수업 정보 등록</h3>
+	<form action="lessons/save" method="post" id="f1" class="d-flex flex-column justify-content-center align-items-center h-100">
+		<h3 id="title">새 수업 정보 등록</h3>
 		<input type="text" placeholder="선생님 성함을 입력해주세요." id="tra" name="trainer">
 		<input type="text" placeholder="수업 과목을 입력해주세요." id="sub" name="subject">
-		<input type="text" placeholder="수업 시간을 입력해주세요." id="ti" name="time">
-		<button type="button" onclick="checkInput()">추가</button>
+		<input type="number" placeholder="총 수업 시간을 입력해주세요." id="ti" name="time">
+		<div id="msg"></div>
+		<div id="modalButtons">
+			<button id="saveButton" type="button" onclick="checkInput()">추가</button>
+			<button id="closeButton" type="button">닫기</button>
+		</div>
 	</form>
 </body>
 <script>
@@ -24,8 +39,12 @@
 		const time = document.getElementById("ti").value;
 		const form = document.getElementById("f1");
 
-		if (trainer.trim() == "" || subject.trim() == "" || time.trim() == "") {
-			alert("등록을 위한 값을 설정해 주세요.");
+		if (trainer.trim() == "") {
+			msg.innerText = "선생님 성함을 입력해주세요.";
+		} else if (subject.trim() == "") {			
+			msg.innerText = "수업명을 입력해주세요.";
+		} else if (time.trim() == "") {
+			msg.innerText = "총 수업 시간을 입력해주세요.";
 		} else {
 			form.submit();
 		}

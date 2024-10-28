@@ -39,9 +39,15 @@ public class LessonServlet extends HttpServlet{
 					req.getParameter("subject"),
 					Float.parseFloat(req.getParameter("time")));
 			jdbcLessonDAO.insert(lesson);
+			
+			resp.sendRedirect("/produce365/lessons");
+			return ;
 		} else if(action.equals("delete")) {
 			LessonDAO lessonDao = new JDBCLessonDAO();
 			lessonDao.deleteById(Integer.parseInt(req.getParameter("id")));
+			
+			resp.sendRedirect("/produce365/lessons");
+			return ;
 		}
 		
 		String dispatcherUrl = null;
@@ -50,10 +56,6 @@ public class LessonServlet extends HttpServlet{
 			dispatcherUrl = "/lesson/lessonList.jsp";
 		} else if (action.equals("input")) {
 			dispatcherUrl = "/lesson/lessonNew.jsp";
-		} else if(action.equals("save")) {
-			dispatcherUrl = "/lessons/findAll";
-		} else if(action.equals("delete")) {
-			dispatcherUrl = "/lessons/findAll";
 		}
 		
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);

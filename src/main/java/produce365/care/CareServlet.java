@@ -24,9 +24,7 @@ public class CareServlet extends HttpServlet {
 		process(req, resp);
 	}
 
-	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
-		
+	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		String uri = req.getRequestURI();
 		int lastIndex = uri.lastIndexOf("/");
 		String action = uri.substring(lastIndex + 1);
