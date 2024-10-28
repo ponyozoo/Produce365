@@ -18,6 +18,10 @@
 		margin: 10px 0;
 		font-size: 1.5em;
 	}
+	
+	#msg {
+		color: #d62828;
+	}
 </style>
 <body>
 	<form action="lessons/save" method="post" id="f1" class="d-flex flex-column justify-content-center align-items-center h-100">
