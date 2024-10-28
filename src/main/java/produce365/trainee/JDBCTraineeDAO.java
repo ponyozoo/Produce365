@@ -15,18 +15,18 @@ public class JDBCTraineeDAO implements TraineeDAO {
 		boolean result = false;
 
 		try (Connection connection = DataSource.getDataSource();
-				PreparedStatement pStatement = connection.prepareStatement(
-						"INSERT INTO TRAINEE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+				PreparedStatement pStatement = connection
+						.prepareStatement("INSERT INTO TRAINEE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
 
 			pStatement.setInt(1, trainee.getId());
-	        pStatement.setString(2, trainee.getName());
-	        pStatement.setDate(3, trainee.getBirth());
-	        pStatement.setString(4, trainee.getSex());
-	        pStatement.setInt(5, trainee.getHeight());
-	        pStatement.setInt(6, trainee.getWeight());
-	        pStatement.setString(7, trainee.getNationality());
-	        pStatement.setDate(8, trainee.getHireDate());
-	        pStatement.setString(9, trainee.getPhoto());
+			pStatement.setString(2, trainee.getName());
+			pStatement.setDate(3, trainee.getBirth());
+			pStatement.setString(4, trainee.getSex());
+			pStatement.setInt(5, trainee.getHeight());
+			pStatement.setInt(6, trainee.getWeight());
+			pStatement.setString(7, trainee.getNationality());
+			pStatement.setDate(8, trainee.getHireDate());
+			pStatement.setString(9, trainee.getPhoto());
 
 			int rows = pStatement.executeUpdate();
 
@@ -44,7 +44,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 	@Override
 	public boolean update(Trainee trainee) {
-		
+
 		boolean result = false;
 
 		try (Connection connection = DataSource.getDataSource();
@@ -72,7 +72,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 	@Override
 	public boolean deleteById(int id) {
-		
+
 		boolean result = false;
 
 		try (Connection connection = DataSource.getDataSource();
@@ -95,7 +95,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 	@Override
 	public List<Trainee> selectAll() {
-		
+
 		List<Trainee> trainees = new ArrayList<Trainee>();
 
 		try (Connection connection = DataSource.getDataSource();
@@ -103,8 +103,8 @@ public class JDBCTraineeDAO implements TraineeDAO {
 				ResultSet rs = pStatment.executeQuery()) {
 
 			while (rs.next()) {
-				Trainee trainee = new Trainee(rs.getInt("ID"), rs.getString("NAME"), rs.getDate("BIRTH"),
-						rs.getString("SEX"), rs.getInt("HEIGHT"), rs.getInt("WEIGHT"), rs.getString("NATIONALITY"),
+				Trainee trainee = new Trainee(rs.getInt("ID"), rs.getString("NAME"), rs.getString("SEX"),
+						rs.getDate("BIRTH"), rs.getString("NATIONALITY"), rs.getInt("HEIGHT"), rs.getInt("WEIGHT"),
 						rs.getDate("HIRE_DATE"), rs.getString("PHOTO"));
 
 				trainees.add(trainee);
@@ -118,7 +118,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 	@Override
 	public Trainee selectById(int id) {
-		
+
 		Trainee selectedTrainee = null;
 
 		try (Connection connection = DataSource.getDataSource();
@@ -150,11 +150,12 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 	@Override
 	public List<Trainee> selectBySex(String sex) {
-		
+
 		List<Trainee> trainees = new ArrayList<>();
 
 		try (Connection connection = DataSource.getDataSource();
-				PreparedStatement pStatement = connection.prepareStatement("SELECT ID, NAME, PHOTO FROM TRAINEE WHERE SEX = ? ORDER BY ID")) {
+				PreparedStatement pStatement = connection
+						.prepareStatement("SELECT ID, NAME, PHOTO FROM TRAINEE WHERE SEX = ? ORDER BY ID")) {
 
 			pStatement.setString(1, sex);
 
@@ -184,7 +185,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 	@Override
 	public List<Trainee> selectByNationality(String nationality) {
-		
+
 		List<Trainee> trainees = new ArrayList<>();
 
 		try (Connection connection = DataSource.getDataSource();
@@ -199,11 +200,11 @@ public class JDBCTraineeDAO implements TraineeDAO {
 				Trainee trainee = new Trainee();
 				trainee.setId(rs.getInt("ID"));
 				trainee.setName(rs.getString("NAME"));
-				trainee.setBirth(rs.getDate("BIRTH"));
 				trainee.setSex(rs.getString("SEX"));
+				trainee.setBirth(rs.getDate("BIRTH"));
+				trainee.setNationality(rs.getString("NATIONALITY"));
 				trainee.setHeight(rs.getInt("HEIGHT"));
 				trainee.setWeight(rs.getInt("WEIGHT"));
-				trainee.setNationality(rs.getString("NATIONALITY"));
 				trainee.setHireDate(rs.getDate("HIRE_DATE"));
 				trainee.setPhoto(rs.getString("PHOTO"));
 
@@ -229,11 +230,11 @@ public class JDBCTraineeDAO implements TraineeDAO {
 				ResultSet rs = pStatement.executeQuery()) {
 
 			while (rs.next()) {
-				Trainee trainee = new Trainee(rs.getInt("ID"), rs.getString("NAME"), rs.getDate("BIRTH"),
-						rs.getString("SEX"), rs.getInt("HEIGHT"), rs.getInt("WEIGHT"), rs.getString("NATIONALITY"),
+				Trainee trainee = new Trainee
+					   (rs.getInt("ID"), rs.getString("NAME"), rs.getString("SEX"),
+						rs.getDate("BIRTH"), rs.getString("NATIONALITY"), rs.getInt("HEIGHT"), rs.getInt("WEIGHT"),
 						rs.getDate("HIRE_DATE"), rs.getString("PHOTO")
-
-				);
+						);
 
 				traineesNoDebut.add(trainee);
 			}
@@ -245,9 +246,9 @@ public class JDBCTraineeDAO implements TraineeDAO {
 		return traineesNoDebut;
 	}
 
-	@Override	//고유국적선택
+	@Override // 고유국적선택
 	public List<String> selectDistinctNationality() {
-		
+
 		List<String> nationalites = new ArrayList<>();
 
 		try (Connection connection = DataSource.getDataSource();
@@ -264,4 +265,3 @@ public class JDBCTraineeDAO implements TraineeDAO {
 	}
 
 }
-
