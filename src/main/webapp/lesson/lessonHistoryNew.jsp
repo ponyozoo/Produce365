@@ -1,51 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
-
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>수업기록추가</title>
-<jsp:include page="/common/link.jsp" />
-</head>
+<style>
+	#title {
+		font-size: 2.5em;
+		font-weight: bold;
+		margin-bottom: 50px;
+	}
+	
+	#f2 select {
+		width: 60%;
+		padding: 15px 20px;
+		margin: 10px 0;
+		font-size: 1.3em;
+	}
+	
+	#msg {
+		color: #d62828;
+	}
+</style>
 <body>
-	<h3>수업 기록 추가</h3>
-	<form action="insert" method="post" id="f2">
-		<select class="form-select" name="subject">
-			<c:forEach var="lesson" items="${lessons}" varStatus="status">
-				<c:choose>
-					<c:when test="${status.index == 0}">
-						<option value="${lesson.id}" selected>${lesson.subject}</option>
-					</c:when>
-					<c:otherwise>
-						<option value="${lesson.id}" selected>${lesson.subject}</option>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		</select> <select class="form-select" name="trainee">
-			<c:forEach var="trainee" items="${trainees}" varStatus="status">
-				<c:choose>
-					<c:when test="${status.index == 0}">
-						<option value="${trainee.id}" selected>${trainee.name}</option>
-					</c:when>
-					<c:otherwise>
-						<option value="${trainee.id}" selected>${trainee.name}</option>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		</select> <input type="date" name="lessonDate" id="historyDate">
-		<button type="button" class="btn" onclick="checkInput()">추가</button>
+	<form action="lessonHistory/save" method="post" id="f2" class="d-flex flex-column justify-content-center align-items-center h-100">
+		<h3 id="title">수업 기록 추가</h3>
+		<select id="selectLesson" class="form-select" name="subject">
+			<c:if test="${!empty lessons}">	
+				<c:forEach var="lesson" items="${lessons}">
+					<option value="${lesson.id}">${lesson.subject}</option>
+				</c:forEach>
+			</c:if>
+			<c:if test="${empty lessons}">
+				<option value="0">수업이 없습니다.</option>
+			</c:if>
+		</select> 
+		<select id="selectTrainee" class="form-select" name="trainee">
+			<c:if test="${!empty trainees}">
+				<c:forEach var="trainee" items="${trainees}">
+					<option value="${trainee.id}">${trainee.name}</option>						
+				</c:forEach>
+			</c:if>
+			<c:if test="${empty trainees}">
+				<option value="0">연습생이 없습니다.</option>
+			</c:if>
+		</select> 
+		<input type="date" name="lessonDate" id="historyDate">
+		<div id="msg"></div>
+		<div id="modalButtons">
+			<button id="saveButton" type="button" onclick="checkInput()">추가</button>
+			<button id="closeButton" type="button">닫기</button>
+		</div>
 	</form>
 </body>
 
 <script>
 	function checkInput() {
-		const date = document.getElementById("historyDate").value;
 		const form = document.getElementById("f2");
+		const lesson = document.getElementById("selectLesson").value;
+		const trainee = document.getElementById("selectTrainee").value;
+		const date = document.getElementById("historyDate").value;
 		
-		if (date.trim() == "") {
-			alert("값을 입력해 주세요.");
+		if (lesson == "0") {
+			msg.innerText = "수업을 선택해주세요.";			
+		} else if (trainee == "0") {
+			msg.innerText = "연습생을 선택해주세요.";			
+		} else if(date == ""){
+			msg.innerText = "올바른 날짜를 입력해주세요.";
 		} else {
 			form.submit();
 		}
