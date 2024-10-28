@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+
 <!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -33,14 +34,14 @@
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-		</select> <input type="date" name="lessonDate" id="lessonDate">
+		</select> <input type="date" name="lessonDate" id="historyDate">
 		<button type="button" class="btn" onclick="checkInput()">추가</button>
 	</form>
 </body>
 
 <script>
 	function checkInput() {
-		const date = document.getElementById("lessonDate").value;
+		const date = document.getElementById("historyDate").value;
 		const form = document.getElementById("f2");
 		
 		if (date.trim() == "") {
