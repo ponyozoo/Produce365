@@ -66,7 +66,7 @@ public class JDBCDebutMebmerDAO implements DebutMemberDAO {
 				PreparedStatement pStatement 
 				= connection.prepareStatement("SELECT D.ID AS DEBUT_ID, T.NAME AS DMEM_NAME "
 						+ "FROM DEBUT D, DEBUT_MEMBER M, TRAINEE T "
-						+ "WHERE D.ID = M.GROUP_ID AND M.TRAINEE = T.ID");			
+						+ "WHERE D.ID = M.GROUP_ID AND M.TRAINEE_ID = T.ID");			
 				ResultSet rs = pStatement.executeQuery()) {
 			
 			while(rs.next()) {
@@ -102,9 +102,8 @@ public class JDBCDebutMebmerDAO implements DebutMemberDAO {
 
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement 
-				= connection.prepareStatement("SELECT D.ID AS DEBUT_ID, T.NAME AS DMEM_NAME "
-						+ "FROM DEBUT D, DEBUT_MEMBER M, TRAINEE T "
-						+ "WHERE D.ID = M.GROUP_ID AND M.TRAINEE = T.ID AND D.ID=?")) {
+				= connection.prepareStatement("SELECT D.ID AS DEBUT_ID, T.NAME AS DMEM_NAME FROM DEBUT D, TRAINEE T, DEBUT_MEMBER M "
+						+ "WHERE D.ID = M.GROUP_ID AND M.TRAINEE_ID = T.ID AND D.ID= ?")) {
 			
 			pStatement.setInt(1, groupId);
 			ResultSet rs = pStatement.executeQuery();
@@ -137,25 +136,6 @@ public class JDBCDebutMebmerDAO implements DebutMemberDAO {
 		return debutMembers;
 	}
 
-
-	@Override
-	public List<DebutMember> selectByName(String traineeName) {
-		List<DebutMember> debutMembers = new ArrayList<DebutMember>();
-		
-		//내가 받아와야 하는 정보.
-		//? 에 해당하는 글자를 이름에 포함하는 trainee 객체.
-		
-		try (Connection connection = DataSource.getDataSource();
-				PreparedStatement pStatement 
-				= connection.prepareStatement("SELECT D.ID AS DEBUT_ID, T.NAME AS DMEM_NAME "
-						+" ")) {
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
 	
 
 }
