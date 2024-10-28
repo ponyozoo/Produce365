@@ -24,7 +24,7 @@
 	}
 </style>
 <body>
-	<form action="lessons/save" method="post" id="f1" class="d-flex flex-column justify-content-center align-items-center h-100">
+	<form action="lessons/save" method="post" id="f1" class="d-flex flex-column justify-content-center align-items-center h-100 my-5">
 		<h3 id="title">새 수업 정보 등록</h3>
 		<input type="text" placeholder="선생님 성함을 입력해주세요." id="tra" name="trainer">
 		<input type="text" placeholder="수업 과목을 입력해주세요." id="sub" name="subject">

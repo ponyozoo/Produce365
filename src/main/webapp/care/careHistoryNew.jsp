@@ -22,7 +22,7 @@
 	}
 </style>
 <body>
-	<form action="careHistory/save" method="post" id="f2" class="d-flex flex-column justify-content-center align-items-center h-100">
+	<form action="careHistory/save" method="post" id="f2" class="d-flex flex-column justify-content-center align-items-center h-100 my-5">
 		<h3 id="title">케어 기록 추가</h3>
 		<select id="selectCare" class="form-select" name="category">
 			<c:if test="${!empty cares}">
