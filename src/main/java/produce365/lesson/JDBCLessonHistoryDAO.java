@@ -34,7 +34,7 @@ public class JDBCLessonHistoryDAO implements LessonHistoryDAO {
 
 		try (Connection conn = DataSource.getDataSource();
 				PreparedStatement pStatement = conn.prepareStatement(
-						"SELECT H.IDX, H.LESSON_DATE, L.SUBJECT, T.NAME FROM LESSON_HISTORY H, LESSON L, TRAINEE T WHERE H.LESSON_ID = L.ID AND H.TRAINEE_ID = T.ID ORDER BY LESSON_DATE");
+						"SELECT H.IDX, H.LESSON_DATE, L.SUBJECT, T.NAME FROM LESSON_HISTORY H, LESSON L, TRAINEE T WHERE H.LESSON_ID = L.ID AND H.TRAINEE_ID = T.ID ORDER BY LESSON_DATE DESC");
 				ResultSet queryResult = pStatement.executeQuery()) {
 			result = new ArrayList<LessonHistory>();
 			while (queryResult.next()) {
