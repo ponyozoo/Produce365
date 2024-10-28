@@ -49,19 +49,17 @@ public class DebutServlet extends HttpServlet{
 			
 			debutDAO.insert(debut);
 			
-		} else if(action.equals("memberInsert")) {
-			//멤버 추가하기 버튼 눌렀을 때.
-			TraineeDAO traineeDAO = new JDBCTraineeDAO();
-			Trainee trainee = new Trainee();
-			
-			trainee.setName(req.getParameter("name"));	
-			
 		} else if(action.equals("findAll")) {
+			//데뷔조 전체 목록
+			
 			DebutDAO debutDAO = new JDBCDebutDAO();
 			req.setAttribute("debuts", debutDAO.findAll());
 			
 		} else if(action.equals("groupPage")) {
-			//데뷔조 상세 페이지
+			//데뷔조 상세 페이지 = 데뷔조 id로 검색
+			DebutDAO debutDAO = new JDBCDebutDAO();
+			int groupId = Integer.parseInt(req.getParameter("id"));
+			req.setAttribute("debuts", debutDAO.findById(groupId));
 			
 		}else if(action.equals("update")) {
 			//데뷔조 상세 페이지에서 수정하기 버튼 눌렀을 때
@@ -73,7 +71,8 @@ public class DebutServlet extends HttpServlet{
 			debut.setConcept(req.getParameter("concept"));
 			debut.setGrade(req.getParameter("grade"));
 			debut.setDebutDate(Date.valueOf(req.getParameter("debutDate")));
-				
+			debut.setId(Integer.parseInt(req.getParameter("id")));
+			
 			debutDAO.update(debut);
 		}
 		

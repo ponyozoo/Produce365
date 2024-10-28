@@ -17,7 +17,5 @@ public interface DebutMemberDAO {
 	//4. 데뷔멤버 그룹별 조회
 	public List<DebutMember> selectByGroup(int groupId);
 	
-	//5. 데뷔멤버 이름으로 조회 (검색했을 때 뜨도록)
-	public List<DebutMember> selectByName(String traineeName);
 	
 }

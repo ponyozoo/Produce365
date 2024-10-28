@@ -34,6 +34,8 @@ public class Debut {
 	public Debut(String photo) {
 		this.photo = photo;
 	}
+	
+	
 
 	public int getId() {
 		return id;
@@ -97,6 +99,8 @@ public class Debut {
 		return "Debut [id=" + id + ", name=" + name + ", memberCount=" + memberCount + ", concept=" + concept
 				+ ", grade=" + grade + ", debutDate=" + debutDate + ", photo=" + photo + "]";
 	}
+
+	
 	
 	
 	
