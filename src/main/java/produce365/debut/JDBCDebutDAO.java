@@ -80,8 +80,6 @@ public class JDBCDebutDAO implements DebutDAO {
 			if(rows > 0) {
 				result = true;
 			}
-			
-			
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
