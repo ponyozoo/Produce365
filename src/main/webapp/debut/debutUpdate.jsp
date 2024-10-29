@@ -111,7 +111,9 @@
 				</div>
 				
 				<div class="col">
-					<button type="button" name="delete" id="delete" onclick="checkDelete()">삭제하기</button>
+					<button type="button" id="deletebutton" onclick="location.href='debuts/delete?id=${debut.id}'">삭제하기</button>
+					<!-- type이 button인 버튼은 delete라는 id를 가지고 있고, 클릭하면 checkDelete 메소드를 실행 -->
+					
 				</div>
 				
 				<div class="col">
@@ -141,7 +143,7 @@
 			const concept = document.getElementById("concept").value;
 			const debutDate = document.getElementById("debutDate").value;
 			const grade = document.getElementById("grade").value;
-			const form = document.getElementById("form")
+			const form = document.getElementById("form");
 
 			if (name != "" && memeberCount != "" && concept != ""
 					&& debutDate != "" && grade != "") {
@@ -151,17 +153,24 @@
 			}
 		}
 		
-		function checkDelete() {
-			const id = document.getElementById("id").value;
-			const form = document.getElementById("form")
+		
+	/* 	function checkDelete() {
 			
-			if(id !=""){
+			const id = document.getElementById("id").value;
+			/* id 변수에 id라는 아이디를 가진 문서의 내용 값을 넣는다. */
+			
+			const form = document.getElementById("form");
+			/*form 변수에 form라는 아이디를 가진 문서의 내용 값을 넣는다. */
+			
+			if(id == ""){ /* id가 비어있지 않으면,  */
+				alert("다시 입력하세요!"); 
+				/* form에 대하여 submit 메소드를 실행하라. */
+			}else { /* 그렇지 않으면,(id가 null 이면) */
 				form.submit();
-			}else {
-				alert("다시 입력하세요!");
+				/* alert(다시 입력하세요) 라는 경고창으 띄워라. */
 			}
 		}
-		
+		 */
 	
 		const DMSModalOpen = document.querySelector("#DMSModal-open");
 		const modalBox = document.querySelector("#modal-box");
