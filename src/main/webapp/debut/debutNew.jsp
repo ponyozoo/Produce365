@@ -105,7 +105,7 @@
 					<button type="button" id="save" onclick="checkInput()">저장하기</button>
 				</div>
 				<div class="col">
-					<button type="button" id="toList" onclick="checkToList()">목록으로</button>
+					<button type="button" id="toList" onclick="location.href='debuts'">목록으로</button>
 				</div>
 			</div>
 		</div>

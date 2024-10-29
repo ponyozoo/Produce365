@@ -11,8 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.jdt.internal.compiler.batch.Main;
+
 @WebServlet("/debuts/*")
 public class DebutServlet extends HttpServlet {
+	
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		process(req, resp);
@@ -55,15 +60,18 @@ public class DebutServlet extends HttpServlet {
 					Integer.parseInt(req.getParameter("id")));
 			debutDAO.update(debut);
 			
-		} else if (action.equals("delete")) {
+		} else if (action.equals("delete")) { //경로가 delete일때,
 			
-			int deleteId = Integer.parseInt(req.getParameter("id"));
+			//int id = Integer.parseInt(req.getParameter("id"));
+			//int형 변수 id에 Integer로 감싼 "id"라는 name을 가진 변수를 리퀘스트하고
 			
-			JDBCDebutDAO debut = new JDBCDebutDAO();
+			JDBCDebutDAO debutDAO = new JDBCDebutDAO(); 
+			//debutDAO라고 하는 새로운 JDBCDebutDAO형 객체를 만들어
 			
-			req.setAttribute("delete", debut.deleteById(deleteId));
-			
+			debutDAO.deleteById(Integer.parseInt(req.getParameter("id")));
+			//debutDAO에 대하여 deleteById라는 메소드를 실행하는데, 그 매개변수로 위의 id를 넣는다.
 
+			
 		} else if (action.equals("save")) {
 			// 새 데뷔조 만들기 : 저장하기 버튼 눌렀을 때
 			DebutDAO debutDAO = new JDBCDebutDAO();
@@ -99,5 +107,6 @@ public class DebutServlet extends HttpServlet {
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
 		rd.forward(req, resp);
 
+	
 	}
 }
