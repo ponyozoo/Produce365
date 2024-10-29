@@ -71,7 +71,7 @@ public class JDBCRatingDAO implements RatingDAO {
 
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement = connection
-						.prepareStatement("SELECT CATEGORY, TRAINEE_ID, GRADE, NAME, BIRTH, SEX "
+						.prepareStatement("SELECT CATEGORY, TRAINEE_ID, GRADE, NAME, PHOTO "
 								+ "FROM RATING JOIN TRAINEE ON RATING.TRAINEE_ID = TRAINEE.ID "
 								+ "WHERE CATEGORY = 'TOTAL' AND GRADE = ?")) {
 			{
@@ -82,10 +82,9 @@ public class JDBCRatingDAO implements RatingDAO {
 					Rating rating = new Rating();
 					Trainee trainee = new Trainee();
 
-					trainee.setId(rs.getInt("ID"));
+					trainee.setId(rs.getInt("TRAINEE_ID"));
 					trainee.setName(rs.getString("NAME"));
-					trainee.setBirth(rs.getDate("BIRTH"));
-					trainee.setSex(rs.getString("SEX"));
+					trainee.setPhoto(rs.getString("PHOTO"));
 					rating.setTrainee(trainee);
 					rating.setCategory(rs.getString("CATEGORY"));
 					rating.setGrade(rs.getString("GRADE"));
