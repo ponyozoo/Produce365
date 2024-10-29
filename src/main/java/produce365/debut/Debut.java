@@ -12,11 +12,15 @@ public class Debut {
 	private Date debutDate;
 	private String photo;
 	
+	
 	public Debut() {
+	}
+	
+	public Debut(int id) {
+		this.id = id;
 	}
 
 	public Debut(int id, String name, int memberCount, String concept, String grade, Date debutDate, String photo) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.memberCount = memberCount;
@@ -25,8 +29,24 @@ public class Debut {
 		this.debutDate = debutDate;
 		this.photo = photo;
 	}
-
 	
+	
+	
+	public Debut(String name, int memberCount, String concept, String grade, Date debutDate, int id) {
+		this.name = name;
+		this.memberCount = memberCount;
+		this.concept = concept;
+		this.grade = grade;
+		this.debutDate = debutDate;
+		this.id = id;
+	}
+
+	public Debut(String photo) {
+		this.photo = photo;
+	}
+	
+	
+
 	public int getId() {
 		return id;
 	}
@@ -89,6 +109,8 @@ public class Debut {
 		return "Debut [id=" + id + ", name=" + name + ", memberCount=" + memberCount + ", concept=" + concept
 				+ ", grade=" + grade + ", debutDate=" + debutDate + ", photo=" + photo + "]";
 	}
+
+	
 	
 	
 	

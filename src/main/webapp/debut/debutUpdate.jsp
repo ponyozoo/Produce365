@@ -38,34 +38,37 @@
 
 </head>
 <body>
-	<form action="/produce365/debuts/save" method="post" id="form">
-
+	<form action="/produce365/debuts/update" method="post" id="form">
 		<div class="container text-center">
 			<div class="row">
 				<div class="col">
 					<input type="file" name="photo">
 				</div>
 				<div class="col">
+				
+					<input type="text" id="id" name="id" value="${debut.id}" hidden="hidden"/>
+					
 					<table class="table table-bordered">
+					
 						<tr>
 							<td>이름</td>
-							<td><input type="text" id="name" name="name" /></td>
+							<td><input type="text" id="name" name="name" value="${debut.name}"/></td>
 						</tr>
 
 						<tr>
 							<td>인원</td>
-							<td><input type="text" id="memeberCount" name="memberCount" /></td>
+							<td><input type="text" id="memeberCount" name="memberCount" value="${debut.memberCount}"/></td>
 						</tr>
 
 
 						<tr>
 							<td>컨셉</td>
-							<td><input type="text" id="concept" name="concept" /></td>
+							<td><input type="text" id="concept" name="concept" value="${debut.concept}"/></td>
 						</tr>
 
 						<tr>
 							<td>데뷔 예정일</td>
-							<td><input type="date" id="debutDate" name="debutDate" /></td>
+							<td><input type="date" id="debutDate" name="debutDate" value="${debut.debutDate}"/></td>
 						</tr>
 
 						<tr>
@@ -84,11 +87,12 @@
 							<td>멤버목록</td>
 							<td>
 								<!-- 선택된 멤버 이름 가져오기 --> 
-								<c:if test="${!empty trinees}">
-									<c:forEach var="trainee" items="${trinees}">
+								<c:if test="${!empty trainees}">
+									<c:forEach var="trainee" items="${trainees}">
 										<span class="traineeName">${trainee.name}</span>
 									</c:forEach>
-								</c:if> <c:if test="${empty trinees}">
+								</c:if> 
+								<c:if test="${empty trainees}">
 									<span>데뷔멤버가 없습니다.</span>
 								</c:if>
 								<button type="button" id="DMSModal-open">멤버 선택</button>
@@ -101,12 +105,19 @@
 
 		<div class="container text-center">
 			<div class="row">
+			
 				<div class="col">
-					<button type="button" id="save" onclick="checkInput()">저장하기</button>
+					<button type="button" id="save" onclick="checkUpdate()">수정하기</button>
 				</div>
+				
 				<div class="col">
-					<button type="button" id="toList" onclick="checkToList()">목록으로</button>
+					<button type="button" name="delete" id="delete" onclick="checkDelete()">삭제하기</button>
 				</div>
+				
+				<div class="col">
+					<button type="button" id="toList" onclick="">목록으로</button>
+				</div>
+			
 			</div>
 		</div>
 
@@ -121,7 +132,9 @@
 
 
 	<script>
-		function checkInput() {
+	
+	
+		function checkUpdate() {
 
 			const name = document.getElementById("name").value;
 			const memeberCount = document.getElementById("memeberCount").value;
@@ -134,7 +147,18 @@
 					&& debutDate != "" && grade != "") {
 				form.submit();
 			} else {
-				alert("다시 입력해~");
+				alert("다시 입력하세요!");
+			}
+		}
+		
+		function checkDelete() {
+			const id = document.getElementById("id").value;
+			const form = document.getElementById("form")
+			
+			if(id !=""){
+				form.submit();
+			}else {
+				alert("다시 입력하세요!");
 			}
 		}
 		
