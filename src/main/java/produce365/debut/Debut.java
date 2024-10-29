@@ -21,7 +21,6 @@ public class Debut {
 	}
 
 	public Debut(int id, String name, int memberCount, String concept, String grade, Date debutDate, String photo) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.memberCount = memberCount;
@@ -34,7 +33,6 @@ public class Debut {
 	
 	
 	public Debut(String name, int memberCount, String concept, String grade, Date debutDate, int id) {
-		super();
 		this.name = name;
 		this.memberCount = memberCount;
 		this.concept = concept;

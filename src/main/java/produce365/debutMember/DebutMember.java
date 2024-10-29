@@ -13,7 +13,6 @@ public class DebutMember {
 	
 
 	public DebutMember(int idx) {
-		super();
 		this.idx = idx;
 	}
 
