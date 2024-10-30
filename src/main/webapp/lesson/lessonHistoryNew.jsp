@@ -22,7 +22,7 @@
 	}
 </style>
 <body>
-	<form action="lessonHistory/save" method="post" id="f2" class="d-flex flex-column justify-content-center align-items-center h-100">
+	<form action="lessonHistory/save" method="post" id="f2" class="d-flex flex-column justify-content-center align-items-center h-100 my-5">
 		<h3 id="title">수업 기록 추가</h3>
 		<select id="selectLesson" class="form-select" name="subject">
 			<c:if test="${!empty lessons}">	

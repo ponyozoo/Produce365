@@ -24,7 +24,7 @@
 	}
 </style>
 <body>
-	<form action="cares/save" method="post" id="f1" class="d-flex flex-column justify-content-center align-items-center h-100">
+	<form action="cares/save" method="post" id="f1" class="d-flex flex-column justify-content-center align-items-center h-100 my-5">
 		<h3 id="title">새 케어 정보 등록</h3>
 		<input id="category" name="category" type="text" placeholder="케어 항목을 입력해주세요." />
 		<input id="cost" name="cost" type="number" placeholder="케어 가격을 입력해주세요." />

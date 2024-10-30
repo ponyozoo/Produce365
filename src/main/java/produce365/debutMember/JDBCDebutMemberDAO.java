@@ -10,7 +10,7 @@ import java.util.List;
 import produce365.debut.Debut;
 import produce365.trainee.Trainee;
 
-public class JDBCDebutMebmerDAO implements DebutMemberDAO {
+public class JDBCDebutMemberDAO implements DebutMemberDAO {
 
 	@Override
 	public boolean insert (DebutMember debutMember) {
@@ -64,26 +64,17 @@ public class JDBCDebutMebmerDAO implements DebutMemberDAO {
 		
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement 
-				= connection.prepareStatement("SELECT D.ID AS DEBUT_ID, T.NAME AS DMEM_NAME "
-						+ "FROM DEBUT D, DEBUT_MEMBER M, TRAINEE T "
-						+ "WHERE D.ID = M.GROUP_ID AND M.TRAINEE_ID = T.ID");			
+				= connection.prepareStatement("SELECT IDX, ID, NAME, PHOTO "
+						+ "FROM DEBUT_MEMBER M, TRAINEE T "
+						+ "WHERE M.TRAINEE_ID = T.ID");	
 				ResultSet rs = pStatement.executeQuery()) {
 			
 			while(rs.next()) {
 				DebutMember debutMember = new DebutMember(rs.getInt("IDX"));
-				Debut debut = new Debut(rs.getInt("DEBUT_ID"));
-				Trainee trainee = new Trainee(rs.getInt("TRAINEE_ID"));
+				Trainee trainee = new Trainee(rs.getInt("ID"));
 				
-				debut.setName(rs.getString("GROUP_NAME"));
-				trainee.setName(rs.getString("TRAINEE_NAME"));
-				trainee.setBirth(rs.getDate("BIRTH"));
-				trainee.setSex(rs.getString("SEX"));
-				trainee.setHeight(rs.getInt("HEIGHT"));
-				trainee.setWeight(rs.getInt("WEIGHT"));
-				trainee.setNationality(rs.getString("NATIONALITY"));
-				trainee.setHireDate(rs.getDate("HIRE_DATE"));
-
-				debutMember.setGroup(debut);
+				trainee.setName(rs.getString("NAME"));
+				trainee.setPhoto(rs.getString("PHOTO"));
 				debutMember.setTrainee(trainee);
 
 				debutMembers.add(debutMember);

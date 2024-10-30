@@ -40,7 +40,6 @@
 	
 	.modal .modal_popup {
 		width: 60%;
-		height: 65%;
 	    position: absolute;
 	    top: 50%;
 	    left: 50%;

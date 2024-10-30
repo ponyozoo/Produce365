@@ -165,12 +165,6 @@ public class JDBCTraineeDAO implements TraineeDAO {
 				Trainee trainee = new Trainee();
 				trainee.setId(rs.getInt("ID"));
 				trainee.setName(rs.getString("NAME"));
-				trainee.setBirth(rs.getDate("BIRTH"));
-				trainee.setSex(rs.getString("SEX"));
-				trainee.setHeight(rs.getInt("HEIGHT"));
-				trainee.setWeight(rs.getInt("WEIGHT"));
-				trainee.setNationality(rs.getString("NATIONALITY"));
-				trainee.setHireDate(rs.getDate("HIRE_DATE"));
 				trainee.setPhoto(rs.getString("PHOTO"));
 
 				trainees.add(trainee);
@@ -190,7 +184,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement = connection
-						.prepareStatement("SELECT ID, NAME, PHOTO TRAINEE WHERE NATIONALITY = ? ORDER BY ID")) {
+						.prepareStatement("SELECT ID, NAME, PHOTO FROM TRAINEE WHERE NATIONALITY = ? ORDER BY ID")) {
 
 			pStatement.setString(1, nationality);
 
@@ -200,12 +194,6 @@ public class JDBCTraineeDAO implements TraineeDAO {
 				Trainee trainee = new Trainee();
 				trainee.setId(rs.getInt("ID"));
 				trainee.setName(rs.getString("NAME"));
-				trainee.setSex(rs.getString("SEX"));
-				trainee.setBirth(rs.getDate("BIRTH"));
-				trainee.setNationality(rs.getString("NATIONALITY"));
-				trainee.setHeight(rs.getInt("HEIGHT"));
-				trainee.setWeight(rs.getInt("WEIGHT"));
-				trainee.setHireDate(rs.getDate("HIRE_DATE"));
 				trainee.setPhoto(rs.getString("PHOTO"));
 
 				trainees.add(trainee);
@@ -224,7 +212,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement = connection.prepareStatement(
-						"SELECT T.ID, T.NAME, T.BIRTH, T.SEX, T.HEIGHT, T.WEIGHT, T.NATIONALITY, T.HIRE_DATE, D.GROUP_ID FROM"
+						"SELECT T.ID, T.NAME, T.BIRTH, T.SEX, T.HEIGHT, T.WEIGHT, T.NATIONALITY, T.HIRE_DATE, T.PHOTO, D.GROUP_ID FROM"
 								+ " TRAINEE T LEFT OUTER JOIN DEBUT_MEMBER D" + " ON T.ID = D.TRAINEE_ID"
 								+ " WHERE GROUP_ID IS NULL" + " ORDER BY T.ID");
 				ResultSet rs = pStatement.executeQuery()) {
