@@ -6,18 +6,25 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
-import org.eclipse.jdt.internal.compiler.batch.Main;
+import produce365.debutMember.DebutMember;
+import produce365.debutMember.DebutMemberDAO;
+import produce365.debutMember.JDBCDebutMemberDAO;
 
+@SuppressWarnings("serial")
 @WebServlet("/debuts/*")
+@MultipartConfig(
+	fileSizeThreshold = 1024*1024,
+	maxFileSize = 1024*1024*50,
+	maxRequestSize = 1024*1024*50*5
+)
 public class DebutServlet extends HttpServlet {
-	
-	
-	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		process(req, resp);
@@ -31,24 +38,54 @@ public class DebutServlet extends HttpServlet {
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String uri = req.getRequestURI();
-
 		int lastIndex = uri.lastIndexOf("/");
 		String action = uri.substring(lastIndex + 1);
+		
+		String dispatcherUrl = null;
 
 		if (action.equals("debuts")) {
-			// 데뷔조 목록 출력.
-			DebutDAO debutDao = new JDBCDebutDAO();
-			List<Debut> debuts = debutDao.findAll();
-			req.setAttribute("list", debuts);
+			String param = req.getParameter("id");
+			if (param == null) {
+				DebutDAO debutDao = new JDBCDebutDAO();
+				List<Debut> debuts = debutDao.findAll();
+				req.setAttribute("list", debuts);
+				dispatcherUrl = "/debut/debut.jsp";
+			} else {
+				DebutDAO debutDAO = new JDBCDebutDAO();
+				int groupId = Integer.parseInt(param);
+				req.setAttribute("debut", debutDAO.findById(groupId));
+				
+				DebutMemberDAO debutMemberDao = new JDBCDebutMemberDAO();
+				List<DebutMember> list = debutMemberDao.selectByGroup(groupId);
+				req.setAttribute("trainees", list);
+				dispatcherUrl = "/debut/debutUpdate.jsp";
+			}
 
-		} else if (action.equals("groupPage")) {
-			// 데뷔조 상세 페이지 = 데뷔조 id로 검색
+		} else if (action.equals("save")) {
 			DebutDAO debutDAO = new JDBCDebutDAO();
-			int groupId = Integer.parseInt(req.getParameter("id"));
-			req.setAttribute("debut", debutDAO.findById(groupId));
+			Debut debut = new Debut();
 
+			String filePath = "";
+			Part part = req.getPart("photo");
+			if (part.getSubmittedFileName() != null) {
+				filePath = "photos/debut_" + (debutDAO.getLastIdx() + 1) + ".jpg";				
+				part.write(req.getServletContext().getRealPath("") + "/" + filePath);
+			} else
+				filePath = "resources/defaultImg.png";
+				
+			debut.setName(req.getParameter("name"));
+			debut.setMemberCount(Integer.parseInt(req.getParameter("memberCount")));
+			debut.setConcept(req.getParameter("concept"));
+			debut.setGrade(req.getParameter("grade"));
+			debut.setDebutDate(Date.valueOf(req.getParameter("debutDate")));
+			debut.setPhoto(filePath);
+			
+			debutDAO.insert(debut);
+			
+			resp.sendRedirect("/produce365/debuts");
+			return ;
+			
 		} else if (action.equals("update")) {
-			// 데뷔조 상세 페이지에서 수정하기 버튼 눌렀을 때
 			DebutDAO debutDAO = new JDBCDebutDAO();
 
 			Debut debut = new Debut(
@@ -60,53 +97,21 @@ public class DebutServlet extends HttpServlet {
 					Integer.parseInt(req.getParameter("id")));
 			debutDAO.update(debut);
 			
-		} else if (action.equals("delete")) { //경로가 delete일때,
+			resp.sendRedirect("/produce365/debuts");
+			return ;
 			
-			//int id = Integer.parseInt(req.getParameter("id"));
-			//int형 변수 id에 Integer로 감싼 "id"라는 name을 가진 변수를 리퀘스트하고
-			
-			JDBCDebutDAO debutDAO = new JDBCDebutDAO(); 
-			//debutDAO라고 하는 새로운 JDBCDebutDAO형 객체를 만들어
-			
-			debutDAO.deleteById(Integer.parseInt(req.getParameter("id")));
-			//debutDAO에 대하여 deleteById라는 메소드를 실행하는데, 그 매개변수로 위의 id를 넣는다.
-
-			
-		} else if (action.equals("save")) {
-			// 새 데뷔조 만들기 : 저장하기 버튼 눌렀을 때
-			DebutDAO debutDAO = new JDBCDebutDAO();
-			Debut debut = new Debut();
-
-			debut.setName(req.getParameter("name"));
-			debut.setMemberCount(Integer.parseInt(req.getParameter("memberCount")));
-			debut.setConcept(req.getParameter("concept"));
-			debut.setGrade(req.getParameter("grade"));
-			debut.setDebutDate(Date.valueOf(req.getParameter("debutDate")));
-			debut.setPhoto(req.getParameter("photo"));
-
-			debutDAO.insert(debut);
-
-		}
-
-		String dispatcherUrl = null;
-
-		if (action.equals("debuts")) {
-			dispatcherUrl = "/debut/debut.jsp";
-		} else if (action.equals("input")) {
-			dispatcherUrl = "/debut/debutNew.jsp";
-		} else if (action.equals("save")) {
-			dispatcherUrl = "/debut/debut.jsp";
-		} else if (action.equals("groupPage")) {
-			dispatcherUrl = "/debut/debutUpdate.jsp";
-		} else if (action.equals("update")) {
-			dispatcherUrl = "/debuts";
 		} else if (action.equals("delete")) {
-			dispatcherUrl = "/debuts";
+			JDBCDebutDAO debutDAO = new JDBCDebutDAO(); 
+			debutDAO.deleteById(Integer.parseInt(req.getParameter("id")));
+			
+			resp.sendRedirect("/produce365/debuts");
+			return ;
+			
+		} else if (action.equals("new")) {
+			dispatcherUrl = "/debut/debutNew.jsp";
 		}
 
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);
 		rd.forward(req, resp);
-
-	
 	}
 }

@@ -24,7 +24,6 @@ public class JDBCDebutDAO implements DebutDAO {
 			pStatement.setDate(5,debut.getDebutDate());
 			pStatement.setString(6, debut.getPhoto());
 			
-			
 			int rows = pStatement.executeUpdate(); 
 			if (rows > 0) {
 				result = true;
@@ -38,7 +37,7 @@ public class JDBCDebutDAO implements DebutDAO {
 	}
 
 	@Override
-	public boolean update(Debut debut) { //사진은 수정 안하는 쪽으로 코드 짜놨습니다! 포함시켜야 할 것 같으면 말해주세용! -민정-
+	public boolean update(Debut debut) {
 		boolean result = false;
 		
 		try (Connection connection = DataSource.getDataSource();
@@ -147,6 +146,22 @@ public class JDBCDebutDAO implements DebutDAO {
 			e.printStackTrace();
 		}
 		return debut;
+	}
+	
+	@Override
+	public int getLastIdx() {
+		try (Connection connection = DataSource.getDataSource();
+				PreparedStatement pStatement 
+				= connection.prepareStatement("SELECT ID FROM DEBUT WHERE ROWNUM = 1 ORDER BY ID DESC");
+				ResultSet rs = pStatement.executeQuery()) {
+
+			if(rs.next())
+				return rs.getInt("ID");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
 	}
 
 }

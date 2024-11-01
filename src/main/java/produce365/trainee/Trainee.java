@@ -14,14 +14,18 @@ public class Trainee {
 	private Date hireDate;
 	private String photo;
 
-	public Trainee() {
-	}
+	public Trainee() {}
 
 	public Trainee(int id) {
 		this.id = id;
 	}
 
 	public Trainee(String name) {
+		this.name = name;
+	}
+	
+	public Trainee(int id, String name) {
+		this.id = id;
 		this.name = name;
 	}
 	
@@ -33,8 +37,7 @@ public class Trainee {
 		this.weight = weight;
 	}
 
-	public Trainee(int id, String name, String sex, Date birth, String nationality, int height, int weight,
-			Date hireDate, String photo) {
+	public Trainee(int id, String name, String sex, Date birth, String nationality, int height, int weight, Date hireDate, String photo) {
 		this.id = id;
 		this.name = name;
 		this.sex = sex;

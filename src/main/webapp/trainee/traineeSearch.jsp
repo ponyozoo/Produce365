@@ -126,20 +126,23 @@
 		
 		<button type="button" id="conSearchButton" onclick="search()">검색</button>
 		
-		<div class="d-flex justify-content-center w-100">
-			<div id="traineeWrap" class="d-flex flex-wrap p-5">
-				<c:if test="${!empty trainees}">
+		<div class="d-flex justify-content-center w-100 py-5">
+			<c:if test="${!empty trainees}">
+				<div id="traineeWrap" class="d-flex flex-wrap px-5">
 					<c:forEach var="trainee" items="${trainees}">
-						<div class="card shadow-sm">
+						<div class="card shadow-sm" onclick="location.href='/produce365/trainees?id=${trainee.id}'">
 							<img class="cardImg" src="${trainee.photo}"/>
 							<span class="traineeName">${trainee.name}</span>
 						</div>
 					</c:forEach>
-				</c:if>
-				<c:if test="${empty trainees}">
-					조건에 맞는 연습생이 없습니다.
-				</c:if>			
-			</div>		
+				</div>
+			</c:if>
+			<c:if test="${!empty value && empty trainees}">
+				조건에 맞는 연습생이 없습니다.
+			</c:if>
+			<c:if test="${empty value}">
+				검색 조건 선택 후 검색 버튼을 눌러주세요.
+			</c:if>
 		</div>
 	</div>
 	
@@ -165,7 +168,7 @@
 			const value = document.querySelector('input[name="' + selected + '"]:checked').value;
 			
 			form.setAttribute("charset", "UTF-8");
-			form.setAttribute("action", "/produce365/traineeSearch/" + selected);
+			form.setAttribute("action", "/produce365/traineeSearch?menu=" + selected + "&value=" + value);
 			form.setAttribute("method", "post");
 			
 		    let input = document.createElement('input');

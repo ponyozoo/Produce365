@@ -12,4 +12,6 @@ public interface DebutDAO {
 	List<Debut> findAll();
 
 	Debut findById(int id);
+	
+	int getLastIdx();
 }

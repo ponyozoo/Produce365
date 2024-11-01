@@ -37,13 +37,14 @@ public class JDBCDebutMemberDAO implements DebutMemberDAO {
 
 	
 	@Override
-	public boolean deleteById(int idx) {
+	public boolean delete(DebutMember debutMember) {
 		boolean result = false;
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement 
-				= connection.prepareStatement("DELETE FROM DEBUT_MEMBER WHERE IDX = ?")) {
+				= connection.prepareStatement("DELETE FROM DEBUT_MEMBER WHERE GROUP_ID = ? AND TRAINEE_ID = ?")) {
 
-			pStatement.setInt(1, idx);
+			pStatement.setInt(1, debutMember.getGroup().getId());
+			pStatement.setInt(2, debutMember.getTrainee().getId());
 
 			int Rows = pStatement.executeUpdate();
 
@@ -93,8 +94,7 @@ public class JDBCDebutMemberDAO implements DebutMemberDAO {
 
 		try (Connection connection = DataSource.getDataSource();
 				PreparedStatement pStatement 
-				= connection.prepareStatement("SELECT D.ID AS DEBUT_ID, T.NAME AS DMEM_NAME FROM DEBUT D, TRAINEE T, DEBUT_MEMBER M "
-						+ "WHERE D.ID = M.GROUP_ID AND M.TRAINEE_ID = T.ID AND D.ID= ?")) {
+				= connection.prepareStatement("SELECT IDX, GROUP_ID, ID, NAME FROM DEBUT_MEMBER D, TRAINEE T WHERE D.TRAINEE_ID = T.ID AND GROUP_ID = ? ORDER BY NAME")) {
 			
 			pStatement.setInt(1, groupId);
 			ResultSet rs = pStatement.executeQuery();
@@ -106,17 +106,14 @@ public class JDBCDebutMemberDAO implements DebutMemberDAO {
 				
 				debutMember.setIdx(rs.getInt("IDX"));
 				
-				debut.setId(rs.getInt("ID"));
-				debut.setName(rs.getString("GROUP_NAME"));
-				debut.setDebutDate(rs.getDate("DEBUT_DATE"));
+				debut.setId(rs.getInt("GROUP_ID"));
 				debutMember.setGroup(debut);
 				
-				trainee.setId(rs.getInt("TRAINEE_ID"));
+				trainee.setId(rs.getInt("ID"));
 				trainee.setName(rs.getString("NAME"));
 				debutMember.setTrainee(trainee);
 				
 				debutMembers.add(debutMember);
-				
 			}
 			
 		} catch (SQLException e) {

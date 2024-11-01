@@ -18,6 +18,7 @@ import produce365.rating.JDBCRatingDAO;
 import produce365.rating.Rating;
 import produce365.rating.RatingDAO;
 
+@SuppressWarnings("serial")
 @WebServlet("/traineeSearch/*")
 public class traineeSearchServlet extends HttpServlet {
 	@Override
@@ -31,10 +32,6 @@ public class traineeSearchServlet extends HttpServlet {
 	}
 	
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String uri = req.getRequestURI();
-		int lastIndex = uri.lastIndexOf("/");
-		String action = uri.substring(lastIndex + 1);
-		
 		TraineeDAO traineeDao = new JDBCTraineeDAO();
 		RatingDAO ratingDao = new JDBCRatingDAO();
 		DebutMemberDAO debutMemberDao = new JDBCDebutMemberDAO();
@@ -42,31 +39,35 @@ public class traineeSearchServlet extends HttpServlet {
 		List<String> nations = traineeDao.selectDistinctNationality();
 		req.setAttribute("nationality", nations);
 		
-		List<Trainee> list = null;
+		String menu = req.getParameter("menu");
+		String value = req.getParameter("value");
 		
-		if (action.equals("sex")) {
-			list = traineeDao.selectBySex(req.getParameter("value"));
-		} else if (action.equals("nation")) {
-			list = traineeDao.selectByNationality(req.getParameter("value"));
-		} else if (action.equals("grade")) {
-			List<Rating> ratingList = ratingDao.selectByTotalGrade(req.getParameter("value"));
-			list = new ArrayList<Trainee>();
-			for (Rating rating : ratingList)
-				list.add(rating.getTrainee());			
-		} else if (action.equals("debut")) {
-			String value = req.getParameter("value");
-			if (value.equals("true")) {
-				List<DebutMember> members = debutMemberDao.selectAll();
+		if (menu != null && value != null) {
+			List<Trainee> list = null;
+			
+			if (menu.equals("sex")) {
+				list = traineeDao.selectBySex(req.getParameter("value"));
+			} else if (menu.equals("nation")) {
+				list = traineeDao.selectByNationality(req.getParameter("value"));
+			} else if (menu.equals("grade")) {
+				List<Rating> ratingList = ratingDao.selectByTotalGrade(req.getParameter("value"));
 				list = new ArrayList<Trainee>();
-				for (DebutMember member : members)
-					list.add(member.getTrainee());
-			} else if (value.equals("false"))
-				list = traineeDao.selectNoDebut();
+				for (Rating rating : ratingList)
+					list.add(rating.getTrainee());			
+			} else if (menu.equals("debut")) {
+				if (value.equals("true")) {
+					List<DebutMember> members = debutMemberDao.selectAll();
+					list = new ArrayList<Trainee>();
+					for (DebutMember member : members)
+						list.add(member.getTrainee());
+				} else if (value.equals("false"))
+					list = traineeDao.selectNoDebut();
+			}
+			
+			req.setAttribute("trainees", list);
+			req.setAttribute("menu", menu);
+			req.setAttribute("value", value);	
 		}
-		
-		req.setAttribute("trainees", list);
-		req.setAttribute("menu", action);
-		req.setAttribute("value", req.getParameter("value"));
 
 		RequestDispatcher rd = req.getRequestDispatcher("/trainee/traineeSearch.jsp");
 		rd.forward(req, resp);

@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>레슨 관리</title>
+	<title>수업 관리</title>
 	<jsp:include page="/common/link.jsp" />
 </head>
 <style>

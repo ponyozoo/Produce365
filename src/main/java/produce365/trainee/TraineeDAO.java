@@ -3,8 +3,6 @@ package produce365.trainee;
 import java.util.List;
 
 public interface TraineeDAO {
-
-	// id, name, birth, sex, height, weight, nationality, hiredate(null->sysdate)
 	boolean insert(Trainee trainee);
 
 	boolean update(Trainee trainee);
@@ -15,9 +13,11 @@ public interface TraineeDAO {
 
 	Trainee selectById(int id);
 
-	List<Trainee> selectBySex(String sex); // join
+	List<Trainee> selectBySex(String sex);
 
 	List<Trainee> selectByNationality(String Nationality);
+
+	List<Trainee> selectByName(String name);
 
 	List<Trainee> selectNoDebut();
 

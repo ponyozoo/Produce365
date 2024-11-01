@@ -60,13 +60,13 @@
 		<jsp:include page="/common/menu.jsp" />
 		<div>
 			<div id="buttonList">
-				<button id="newButton" class="traineeButton" onclick="location.href='trainees/input'"></button>
-				<button id="searchButton" class="traineeButton"></button>
+				<button id="newButton" class="traineeButton" onclick="location.href='trainees/new'"></button>
+				<button id="searchButton" class="traineeButton" onclick="location.href='traineeSearch'"></button>
 			</div>
 			<div class="d-flex flex-wrap my-3">
 				<c:if test="${!empty list}">
 					<c:forEach var="trainee" items="${list}">
-						<div class="card shadow-sm">
+						<div class="card shadow-sm" onclick="location.href='trainees?id=${trainee.id}'">
 							<img class="cardImg" src="${trainee.photo}"/>
 							<span class="traineeName">${trainee.name}</span>
 						</div>
