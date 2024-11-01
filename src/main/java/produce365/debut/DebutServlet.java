@@ -17,6 +17,7 @@ import produce365.debutMember.DebutMember;
 import produce365.debutMember.DebutMemberDAO;
 import produce365.debutMember.JDBCDebutMemberDAO;
 
+@SuppressWarnings("serial")
 @WebServlet("/debuts/*")
 @MultipartConfig(
 	fileSizeThreshold = 1024*1024,
@@ -37,14 +38,28 @@ public class DebutServlet extends HttpServlet {
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String uri = req.getRequestURI();
-
 		int lastIndex = uri.lastIndexOf("/");
 		String action = uri.substring(lastIndex + 1);
+		
+		String dispatcherUrl = null;
 
 		if (action.equals("debuts")) {
-			DebutDAO debutDao = new JDBCDebutDAO();
-			List<Debut> debuts = debutDao.findAll();
-			req.setAttribute("list", debuts);
+			String param = req.getParameter("id");
+			if (param == null) {
+				DebutDAO debutDao = new JDBCDebutDAO();
+				List<Debut> debuts = debutDao.findAll();
+				req.setAttribute("list", debuts);
+				dispatcherUrl = "/debut/debut.jsp";
+			} else {
+				DebutDAO debutDAO = new JDBCDebutDAO();
+				int groupId = Integer.parseInt(param);
+				req.setAttribute("debut", debutDAO.findById(groupId));
+				
+				DebutMemberDAO debutMemberDao = new JDBCDebutMemberDAO();
+				List<DebutMember> list = debutMemberDao.selectByGroup(groupId);
+				req.setAttribute("trainees", list);
+				dispatcherUrl = "/debut/debutUpdate.jsp";
+			}
 
 		} else if (action.equals("save")) {
 			DebutDAO debutDAO = new JDBCDebutDAO();
@@ -70,15 +85,6 @@ public class DebutServlet extends HttpServlet {
 			resp.sendRedirect("/produce365/debuts");
 			return ;
 			
-		} else if (action.equals("detail")) {
-			DebutDAO debutDAO = new JDBCDebutDAO();
-			int groupId = Integer.parseInt(req.getParameter("id"));
-			req.setAttribute("debut", debutDAO.findById(groupId));
-			
-			DebutMemberDAO debutMemberDao = new JDBCDebutMemberDAO();
-			List<DebutMember> list = debutMemberDao.selectByGroup(groupId);
-			req.setAttribute("trainees", list);
-
 		} else if (action.equals("update")) {
 			DebutDAO debutDAO = new JDBCDebutDAO();
 
@@ -101,16 +107,8 @@ public class DebutServlet extends HttpServlet {
 			resp.sendRedirect("/produce365/debuts");
 			return ;
 			
-		}
-
-		String dispatcherUrl = null;
-
-		if (action.equals("debuts")) {
-			dispatcherUrl = "/debut/debut.jsp";
 		} else if (action.equals("new")) {
 			dispatcherUrl = "/debut/debutNew.jsp";
-		} else if (action.equals("detail")) {
-			dispatcherUrl = "/debut/debutUpdate.jsp";
 		}
 
 		RequestDispatcher rd = req.getRequestDispatcher(dispatcherUrl);

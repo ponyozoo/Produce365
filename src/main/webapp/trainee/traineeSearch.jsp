@@ -130,7 +130,7 @@
 			<c:if test="${!empty trainees}">
 				<div id="traineeWrap" class="d-flex flex-wrap px-5">
 					<c:forEach var="trainee" items="${trainees}">
-						<div class="card shadow-sm">
+						<div class="card shadow-sm" onclick="location.href='/produce365/trainees?id=${trainee.id}'">
 							<img class="cardImg" src="${trainee.photo}"/>
 							<span class="traineeName">${trainee.name}</span>
 						</div>
@@ -168,7 +168,7 @@
 			const value = document.querySelector('input[name="' + selected + '"]:checked').value;
 			
 			form.setAttribute("charset", "UTF-8");
-			form.setAttribute("action", "/produce365/traineeSearch/" + selected);
+			form.setAttribute("action", "/produce365/traineeSearch?menu=" + selected + "&value=" + value);
 			form.setAttribute("method", "post");
 			
 		    let input = document.createElement('input');

@@ -9,12 +9,62 @@
 	<jsp:include page="/common/link.jsp" />
 <style>
 	#content {
-		margin-top: 130px;
+		height: 100vh;
+		padding-top: 130px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 	
-	#debutPhoto {
+	#content button {
+		width: 20%;
+		font-size: 1.3em;
+		padding: 7px 0;
+		border-radius: 30px;
+		background-color: #383838;
+		color: white;
+		border: none;
+	}
+	
+	#form table {
+		width: 500px;
+		border: 1px solid #CBD5E1;
+		font-size: 1.1em;
+	}
+	
+	#form table th {
+		width: 33%;
+		border: 1px solid #CBD5E1;
+		background-color: #EEF4FC;
+		padding: 15px;	
+		font-weight: bold;
+	}
+	
+	#form table td {
+		border: 1px solid #CBD5E1;
+		padding: 15px;
+	}
+	
+	#form table input {
+		border: none;
+		background-color: transparent;
+	}
+	
+	#form table input:focus {
+		outline: none;
+	}
+	
+	
+	#photoWrapper {
+		width: 500px;
+		height: 600px;
+		margin: 0 3rem;
+	}
+	
+	#photoWrapper img {
 		width: 100%;
-		height: 70vh;
+		height: 100%;
 		object-fit: cover;
 	}
 
@@ -43,6 +93,13 @@
 		border-radius: 10px;
 		overflow: hidden;
 	}
+	
+	#DMSModal-open {
+		width: 40% !important;
+		font-size: 1em !important;
+		background-color: #6678A6 !important;
+		margin-top: 10px;
+	}
 </style>
 
 </head>
@@ -55,77 +112,62 @@
 
 	<jsp:include page="/common/header.jsp" />
 	<div id="content">
-		<form action="/produce365/debuts/update" method="post" id="form">
-			<div class="container text-center">
-				<div class="row">
-					<div class="col-5">
-						<img src="../${debut.photo}" id="debutPhoto" />
-					</div>
-					<div class="col-5">
-						<input type="text" id="groupId" name="id" value="${debut.id}" hidden="hidden"/>
-						<table class="table table-bordered">
-							<tr>
-								<td>이름</td>
-								<td><input type="text" id="name" name="name" value="${debut.name}"/></td>
-							</tr>
-							<tr>
-								<td>인원</td>
-								<td><input type="text" id="memeberCount" name="memberCount" value="${debut.memberCount}"/></td>
-							</tr>
-							<tr>
-								<td>컨셉</td>
-								<td><input type="text" id="concept" name="concept" value="${debut.concept}"/></td>
-							</tr>
-							<tr>
-								<td>데뷔 예정일</td>
-								<td><input type="date" id="debutDate" name="debutDate" value="${debut.debutDate}"/></td>
-							</tr>
-							<tr>
-								<td>종합 등급</td>
-								<td>
-									<select id="grade" name="grade">
-										<option value="A" <c:if test="${debut.grade == 'A'}">selected</c:if>>A</option>
-										<option value="B" <c:if test="${debut.grade == 'B'}">selected</c:if>>B</option>
-										<option value="C" <c:if test="${debut.grade == 'C'}">selected</c:if>>C</option>
-										<option value="D" <c:if test="${debut.grade == 'D'}">selected</c:if>>D</option>
-										<option value="E" <c:if test="${debut.grade == 'E'}">selected</c:if>>E</option>
-										<option value="F" <c:if test="${debut.grade == 'F'}">selected</c:if>>F</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>멤버목록</td>
-								<td>
-									<c:if test="${!empty trainees}">
-										<c:forEach var="trainee" items="${trainees}">
-											<div id="${trainee.trainee.id}">${trainee.trainee.name}</div>
-										</c:forEach>
-									</c:if> 
-									<c:if test="${empty trainees}">
-										<span>데뷔멤버가 없습니다.</span>
-									</c:if>
-									<button type="button" id="DMSModal-open">멤버 선택</button>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
+		<form action="/produce365/debuts/update" method="post" id="form" class="d-flex justify-content-center align-items-center w-100">
+			<div id="photoWrapper">
+				<img src="${debut.photo}" />
 			</div>
-	
-			<div class="container text-center">
-				<div class="row">
-					<div class="col">
-						<button type="button" id="save" onclick="checkUpdate()">수정하기</button>
-					</div>
-					<div class="col">
-						<button type="button" id="deletebutton" onclick="location.href='debuts/delete?id=${debut.id}'">삭제하기</button>
-					</div>
-					<div class="col">
-						<button type="button" id="toList" onclick="location.href='/produce365/debuts'">목록으로</button>
-					</div>
-				</div>
-			</div>
+			<input type="text" id="groupId" name="id" value="${debut.id}" hidden="hidden"/>
+			<table class="mx-5 mb-4">
+				<tr>
+					<th>이름</th>
+					<td><input type="text" id="name" name="name" value="${debut.name}"/></td>
+				</tr>
+				<tr>
+					<th>인원</th>
+					<td><input type="text" id="memeberCount" name="memberCount" value="${debut.memberCount}"/></td>
+				</tr>
+				<tr>
+					<th>컨셉</th>
+					<td><input type="text" id="concept" name="concept" value="${debut.concept}"/></td>
+				</tr>
+				<tr>
+					<th>데뷔 예정일</th>
+					<td><input type="date" id="debutDate" name="debutDate" value="${debut.debutDate}"/></td>
+				</tr>
+				<tr>
+					<th>종합 등급</th>
+					<td class="py-0">
+						<select id="grade" name="grade">
+							<option value="A" <c:if test="${debut.grade == 'A'}">selected</c:if>>A</option>
+							<option value="B" <c:if test="${debut.grade == 'B'}">selected</c:if>>B</option>
+							<option value="C" <c:if test="${debut.grade == 'C'}">selected</c:if>>C</option>
+							<option value="D" <c:if test="${debut.grade == 'D'}">selected</c:if>>D</option>
+							<option value="E" <c:if test="${debut.grade == 'E'}">selected</c:if>>E</option>
+							<option value="F" <c:if test="${debut.grade == 'F'}">selected</c:if>>F</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>멤버 목록</th>
+					<td>
+						<c:if test="${!empty trainees}">
+							<c:forEach var="trainee" items="${trainees}">
+								<div id="${trainee.trainee.id}">${trainee.trainee.name}</div>
+							</c:forEach>
+						</c:if> 
+						<c:if test="${empty trainees}">
+							<span>데뷔멤버가 없습니다.</span>
+						</c:if>
+						<button type="button" id="DMSModal-open">멤버 선택</button>
+					</td>
+				</tr>
+			</table>
 		</form>
+		<div class="d-flex justify-content-between w-50 mt-5 mb-3">
+			<button type="button" class="col-3" id="save" onclick="checkUpdate()">수정하기</button>
+			<button type="button" class="col-3" id="deletebutton" onclick="location.href='debuts/delete?id=${debut.id}'">삭제하기</button>
+			<button type="button" class="col-3" id="toList" onclick="location.href='/produce365/debuts'">목록으로</button>
+		</div>
 	</div>
 
 	<script>

@@ -16,6 +16,7 @@ import org.json.simple.parser.ParseException;
 import produce365.trainee.JDBCTraineeDAO;
 import produce365.trainee.Trainee;
 
+@SuppressWarnings("serial")
 @WebServlet("/debutMembers/*")
 public class DebutMemberServlet extends HttpServlet{
 
@@ -37,19 +38,19 @@ public class DebutMemberServlet extends HttpServlet{
 		
 		if (action.equals("search")) {
 			String name = req.getParameter("name");
+			JSONObject json = new JSONObject();
 
 			if (!name.equals("")) {
 				JDBCTraineeDAO traineeDao = new JDBCTraineeDAO();
 				List<Trainee> list = traineeDao.selectByName(name);
 				
-				JSONObject json = new JSONObject();
 				for (Trainee trainee : list) {
 					json.put(trainee.getId(), trainee.getName());
-				}
-				
-				resp.setContentType("application/x-json; charset=utf-8");
-				resp.getWriter().print(json);
+				}	
 			}
+			
+			resp.setContentType("application/x-json; charset=utf-8");
+			resp.getWriter().print(json);
 		} else if (action.equals("add")) {
 	        String body = req.getReader().readLine();
 	        JSONParser parser = new JSONParser();
