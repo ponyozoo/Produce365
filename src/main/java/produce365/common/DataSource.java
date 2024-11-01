@@ -1,4 +1,4 @@
-package produce365.trainee;
+package produce365.common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
