@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import produce365.common.DataSource;
 import produce365.trainee.Trainee;
 
 public class JDBCLessonHistoryDAO implements LessonHistoryDAO {
