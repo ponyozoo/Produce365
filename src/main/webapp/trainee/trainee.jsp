@@ -61,7 +61,7 @@
 		<div>
 			<div id="buttonList">
 				<button id="newButton" class="traineeButton" onclick="location.href='trainees/input'"></button>
-				<button id="searchButton" class="traineeButton"></button>
+				<button id="searchButton" class="traineeButton" onclick="location.href='traineeSearch'"></button>
 			</div>
 			<div class="d-flex flex-wrap my-3">
 				<c:if test="${!empty list}">

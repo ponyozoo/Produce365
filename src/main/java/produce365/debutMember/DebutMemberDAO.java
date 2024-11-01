@@ -9,7 +9,7 @@ public interface DebutMemberDAO {
 	boolean insert(DebutMember debutMember);
 	
 	//2. 데뷔멤버 삭제
-	boolean deleteById(int idx);
+	boolean delete(DebutMember debutMember);
 	
 	//3. 데뷔멤버 전체 조회
 	public List<DebutMember> selectAll();

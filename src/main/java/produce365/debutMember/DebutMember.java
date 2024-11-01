@@ -9,11 +9,14 @@ public class DebutMember {
 	private Trainee trainee;
 	
 	public DebutMember() {}
-	
-	
 
 	public DebutMember(int idx) {
 		this.idx = idx;
+	}
+	
+	public DebutMember(int groupId, int traineeId) {
+		this.group = new Debut(groupId);
+		this.trainee = new Trainee(traineeId);
 	}
 
 	public DebutMember(int idx, Debut group, Trainee trainee) {

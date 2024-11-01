@@ -205,6 +205,26 @@ public class JDBCTraineeDAO implements TraineeDAO {
 
 		return trainees;
 	}
+	
+	@Override
+	public List<Trainee> selectByName(String name) {
+		List<Trainee> list = null;
+
+		try (Connection connection = DataSource.getDataSource();
+				PreparedStatement pStatement = connection.prepareStatement("SELECT ID, NAME FROM TRAINEE WHERE NAME LIKE ?")) {
+			
+			pStatement.setString(1, "%" + name + "%");
+			ResultSet rs = pStatement.executeQuery();
+			
+			list = new ArrayList<>();
+			while (rs.next())
+				list.add(new Trainee(rs.getInt("ID"), rs.getString("NAME")));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 
 	@Override
 	public List<Trainee> selectNoDebut() {
@@ -234,7 +254,7 @@ public class JDBCTraineeDAO implements TraineeDAO {
 		return traineesNoDebut;
 	}
 
-	@Override // 고유국적선택
+	@Override
 	public List<String> selectDistinctNationality() {
 
 		List<String> nationalites = new ArrayList<>();

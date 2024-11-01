@@ -48,11 +48,11 @@
 	<div id="content" class="d-flex">
 		<jsp:include page="/common/menu.jsp" />
 		<div>
-			<button id="newButton" onclick="location.href='debuts/input'"></button>
+			<button id="newButton" onclick="location.href='debuts/new'"></button>
 			<div class="d-flex flex-wrap my-3">
 				<c:if test="${!empty list}">
 					<c:forEach var="debut" items="${list}">
-						<div class="card shadow-sm">
+						<div class="card shadow-sm" onclick="location.href='debuts/detail?id=${debut.id}'">
 							<img class="cardImg" src="${debut.photo}"/>
 							<span class="debutName">${debut.name}</span>
 						</div>
