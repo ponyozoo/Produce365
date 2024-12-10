@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/base :: base(~{::link})">
+<meta charset="UTF-8">
+<title>debutupdate</title>
+</head>
+<style>
+	#content {
+		height: 100vh;
+		padding-top: 130px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	#content button {
+		width: 20%;
+		font-size: 1.3em;
+		padding: 7px 0;
+		border-radius: 30px;
+		background-color: #383838;
+		color: white;
+		border: none;
+	}
+	
+	#form table {
+		width: 500px;
+		border: 1px solid #CBD5E1;
+		font-size: 1.1em;
+	}
+	
+	#form table th {
+		width: 33%;
+		border: 1px solid #CBD5E1;
+		background-color: #EEF4FC;
+		padding: 15px;	
+		font-weight: bold;
+	}
+	
+	#form table td {
+		border: 1px solid #CBD5E1;
+		padding: 15px;
+	}
+	
+	#form table input {
+		border: none;
+		background-color: transparent;
+	}
+	
+	#form table input:focus {
+		outline: none;
+	}
+	
+	
+	#photoWrapper {
+		width: 500px;
+		height: 600px;
+		margin: 0 3rem;
+	}
+	
+	#photoWrapper img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	#modal-box {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0, 0, 0, 0.6);
+		display: none;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	#modal-box.active {
+		display: flex;
+	}
+	
+	#popup {
+		width: 60%;
+		height: 60%;
+		max-width: 60%;
+		max-height: 60%;
+		background-color: #ffffff;
+		border-radius: 10px;
+		overflow: hidden;
+	}
+	
+	
+</style>
+
+<body>
+
+	
+	<div id="content">
+		<form action="/debutupdate" method="post" id="form" class="d-flex justify-content-center align-items-center w-100" enctype="multipart/form-data">
+			<div id="photoWrapper">
+				<img src="@{debut.photo}" />
+			</div>
+			<input type="text" id="groupId" name="id" th:value="${debut.id}" hidden="hidden"/>
+			<table class="mx-5 mb-4">
+				<tr>
+					<th>이름</th>
+					<td><input type="text" id="name" name="name" th:value="${debut.name}"/></td>
+				</tr>
+				<tr>
+					<th>인원</th>
+					<td><input type="text" id="memeberCount" name="memberCount" th:value="${debut.memberCount}"/></td>
+				</tr>
+				<tr>
+					<th>컨셉</th>
+					<td><input type="text" id="concept" name="concept" th:value="${debut.concept}"/></td>
+				</tr>
+				<tr>
+					<th>데뷔 예정일</th>
+					<td><input type="date" id="debutDate" name="debutDate" th:value="${debut.debutDate}"/></td>
+				</tr>
+				<tr>
+					<th>종합 등급</th>
+					<td class="py-0">
+						<select id="grade" name="grade">
+							<option value="A" >A</option>
+							<option value="B" >B</option>
+							<option value="C" >C</option>
+							<option value="D" >D</option>
+							<option value="E" >E</option>
+							<option value="F" >F</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>멤버 목록</th>
+					<td>
+					
+						<div th:if="${message}">
+		<h3 th:text="${message}"></h3>
+	</div>
+					
+						<th:if test="${!empty trainees}">
+							<th:forEach var="trainee" items="${trainees}">
+								<div id="${trainee.trainee.id}" >"${trainee.trainee.name}"</div>
+							</th:forEach>
+						</th:if> 
+						
+						<th:if test="${empty trainees}">
+							<span>데뷔멤버가 없습니다.</span>
+						</th:if>
+						
+						
+					</td>
+				</tr>
+			</table>
+		</form>
+		<div class="d-flex justify-content-between w-50 mt-5 mb-3">
+			<button type="button" class="col-3" id="save" >수정하기</button>
+			<button type="button" class="col-3" id="deletebutton" >삭제하기</button>
+			<button type="button" class="col-3" id="toList" onclick="location.href='/debut'">목록으로</button>
+		</div>
+	</div>
+
+	
+
+</body>
+</html>

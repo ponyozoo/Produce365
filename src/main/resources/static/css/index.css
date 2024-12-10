@@ -1,0 +1,15 @@
+#logo {
+	font-size: 8em;
+	font-family: 'TAEBAEK';
+	font-weight: bold;
+}
+
+button {
+	width: 10%;
+	font-size: 2em;
+	background-color: #383838;
+	color: white;
+	border: 0px;
+	border-radius: 20px;
+	padding: 10px 30px;
+}
