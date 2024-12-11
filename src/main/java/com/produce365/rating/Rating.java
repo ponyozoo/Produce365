@@ -1,8 +1,8 @@
-package com.produce365.care;
+package com.produce365.rating;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,18 +10,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "CARE")
-public class Care {
-	@Id
-	private int id;
-	@Column(name = "CATEGORY")
-	private String category;
-	@Column(name = "COST")
-	private int cost;
+@Table(name = "RATING")
+public class Rating {
+	@EmbeddedId
+	private RatingPK raitngPK;
+	@Column(name = "GRADE")
+	private String grade;
 }
