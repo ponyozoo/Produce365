@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<form th:action="@{/lesson/save}" method="post" th:object="${lesson}" id="form" class="d-flex flex-column justify-content-center align-items-center h-100 my-5">
+		<h3 id="title">새 수업 정보 등록</h3>
+		<input type="text" placeholder="선생님 성함을 입력해주세요." id="tra" name="trainer">
+		<input type="text" placeholder="수업 과목을 입력해주세요." id="sub" name="subject">
+		<input type="number" placeholder="총 수업 시간을 입력해주세요." id="ti" name="time">
+		<div id="msg"></div>
+		<div id="modalButtons">
+			<button id="saveButton" type="button" th:onClick="checkInput()">추가</button>
+			<button id="closeButton" type="button">닫기</button>
+		</div>
+	</form>
+</body>
+</html>

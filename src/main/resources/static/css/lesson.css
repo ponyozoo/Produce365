@@ -1,0 +1,62 @@
+#content {
+	margin-top: 130px;
+}
+
+#newButton {
+	background-image: url(../img/newButton.png);
+	background-color: transparent;
+	background-size: cover;
+	border: none;
+	width: 50px;
+	height: 50px;
+	margin: 5px 5px 5px 15px;
+}
+
+#rightBox {
+	width: 100%;
+}
+
+#infoWrapper {
+	margin: 15px 150px 50px 15px;
+}
+
+.lessonInfo {
+	font-size: 1.5em;
+	font-weight: bold;
+	border: 1px solid lightgrey;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+#lessonCategory {
+	width: 30%;
+	margin-left: 20px;
+}
+
+#lessonTrainer {
+	width: 20%;
+}
+
+#lessonTime {
+	width: 20%;
+}
+
+#deleteButton {
+	background-image: url(../img/deleteButton.png);
+	background-color: transparent;
+	background-size: cover;
+	border: none;
+	width: 40px;
+	height: 40px;
+	margin: 5px 20px 5px 50px;
+}
+
+#tra, #sub, #ti {
+	width: 80%;
+	border: 1px solid #383838;
+	border-radius: 20px;
+	padding: 20px;
+	margin: 10px 0;
+	font-size: 1.5em;
+}

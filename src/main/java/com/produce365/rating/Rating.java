@@ -1,8 +1,8 @@
-package com.produce365.account;
+package com.produce365.rating;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,10 +16,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "ACCOUNT")
-public class Account {
-	@Id
-	private String id;
-	@Column(name = "PW")
-	private String pw;
+@Table(name = "RATING")
+public class Rating {
+	@EmbeddedId
+	private RatingPK raitngPK;
+	@Column(name = "GRADE")
+	private String grade;
 }
