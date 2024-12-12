@@ -3,25 +3,32 @@ package com.produce365.care;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
-@RequestMapping("/cares")
+@RequiredArgsConstructor
 public class CareService {
 
 	private final CareRepository careRepository;
-
-	public CareService(CareRepository careRepository) {
-		this.careRepository = careRepository;
-	}
 	
-	public void saveCare(Care care) {
+	public boolean saveCare(Care care) {
+		try { //왜 try catch 인지 물어보기
 		careRepository.save(care);
-	}
+		return true; 
+		} catch(IllegalArgumentException e) { 
+		return false;
+		}
+}
 	
-	public void deleteCare(int id) {
+	public boolean deleteCare(int id) {
+		try { //왜 try catch 인지 물어보기
 		careRepository.deleteById(id);
-	}
+		return true; 
+		} catch(IllegalArgumentException e) { 
+		return false;
+		}
+}
 	
 	public List<Care> getCares(){
 		return careRepository.findAll();
