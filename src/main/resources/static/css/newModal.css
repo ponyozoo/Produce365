@@ -20,12 +20,7 @@
     border-radius: 20px;
 }
 	
-#modalButtons {
-	width: 30%;
-	text-align: center;
-}
-
-#modalButtons button {
+.modalButtons button {
 	font-size: 1.5em;
 	color: white;
 	border: 0px;
@@ -34,12 +29,16 @@
 	margin: 50px 5px 0 5px;
 }
 
-#modalButtons #saveButton {
+.modalButtons .confirmButton {
 	background-color: #EA5D5D;
 }
 
-#modalButtons #closeButton {
+.modalButtons .closeButton {
 	background-color: #383838;		
+}
+
+#deleteModal .modal_popup {
+	width: 30%;
 }
 
 #title {
@@ -50,4 +49,24 @@
 
 #msg {
 	color: #d62828;
+}
+
+/*history*/
+
+#historyDate{
+	background-color : #383838;
+	padding: 15px;
+	color : #ffffff;
+	font-size : 18px;
+	border : none;
+	outline : none;
+	border-radius : 5px;
+	margin: 20px 0;
+}
+
+::-webkit-calendar-picker-indicator{
+	background-color : #ffffff;
+	padding : 5px;
+	cursor : pointer;
+	border-radius : 3px;
 }

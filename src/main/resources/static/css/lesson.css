@@ -20,6 +20,8 @@
 	margin: 15px 150px 50px 15px;
 }
 
+/*lesson.html*/
+
 .lessonInfo {
 	font-size: 1.5em;
 	font-weight: bold;
@@ -52,6 +54,8 @@
 	margin: 5px 20px 5px 50px;
 }
 
+/*lessonNew.html*/
+
 #tra, #sub, #ti {
 	width: 80%;
 	border: 1px solid #383838;
@@ -59,4 +63,35 @@
 	padding: 20px;
 	margin: 10px 0;
 	font-size: 1.5em;
+}
+
+/*lessonHistory.html*/
+
+.lessonHistory {
+	font-size: 1.5em;
+	font-weight: bold;
+	border: 1px solid lightgrey;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+#lessonHistorySubject {
+	width: 30%;
+	margin-left: 20px;
+}
+
+#lesssonHistoryTrainee {
+	width: 20%;
+}
+
+#lessonHistoryDate {
+	width: 20%;
+}
+
+#form select {
+	width: 60%;
+	padding: 15px 20px;
+	margin: 10px 0;
+	font-size: 1.3em;
 }

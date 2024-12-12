@@ -1,11 +1,22 @@
-const modal = document.querySelector('.modal');
-const modalOpen = document.getElementById("newButton");
-const modalClose = document.getElementById("closeButton");
+const newModal = document.getElementById('newModal');
+const deleteModal = document.getElementById('deleteModal');
 
-modalOpen.addEventListener('click',function(){
-    modal.style.display = 'block';
-});
+function openNewModal() {
+	newModal.style.display = 'block';
+}
 
-modalClose.addEventListener('click',function(){
-    modal.style.display = 'none';
-});
+function closeNewModal() {
+	newModal.style.display = 'none';
+}
+
+function openDeleteModal(base, idx) {
+	deleteModal.style.display = 'block';
+	const button = document.getElementById('confirmDeleteButton');
+	button.addEventListener('click', () => {
+		location.href='/'+ base + '/delete?id=' + idx;
+	})
+}
+
+function closeDeleteModal() {
+	deleteModal.style.display = 'none';
+}
