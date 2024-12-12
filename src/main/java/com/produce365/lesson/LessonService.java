@@ -2,6 +2,7 @@ package com.produce365.lesson;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ public class LessonService {
 	private final LessonRepository lessonRepository;
 	
 	public List<Lesson> getLessons() {
-		return lessonRepository.findAll();
+		return lessonRepository.findAll(Sort.by(Sort.Direction.ASC, "subject"));
 	}
 	
 	public boolean deleteLesson(int id) {
@@ -31,6 +32,5 @@ public class LessonService {
 		} catch(IllegalArgumentException e) {
 			return false;
 		}
-		
 	}
 }

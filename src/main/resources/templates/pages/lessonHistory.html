@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/base :: base(~{::link})">
+	<meta charset="UTF-8">
+	<title>수업 기록</title>
+	<link rel="stylesheet" type="text/css" href="/css/lesson.css">
+	<link rel="stylesheet" type="text/css" href="/css/newModal.css">
+</head>
+<body>
+	<div th:insert="common/header"></div>
+	<div class="modal" id="newModal">
+	    <div class="modal_popup" th:insert="pages/lessonHistoryNew"></div>
+	</div>
+	<div class="modal" id="deleteModal">
+	    <div class="modal_popup" th:insert="common/deleteModal"></div>
+	</div>
+	<div id="content" class="d-flex">
+		<div th:insert="common/menu"></div>
+		<div id="rightBox">
+			<button id="newButton" th:onclick="openNewModal()"></button>
+			<div id="infoWrapper">
+				<div th:if="${lessonHistories.size() != 0}" th:each="lessonHistory : ${lessonHistories}" class="d-flex justify-content-between align-items-center lessonHistory">
+					<div id="lessonHistorySubject" th:text="${lessonHistory.lesson.subject}"></div>
+					<div id="lesssonHistoryTrainee" th:text="${lessonHistory.trainee.name}"></div>
+					<div id="lessonHistoryDate" th:text="${lessonHistory.date}"></div>
+					<button id="deleteButton" type="button" th:onclick="|openDeleteModal('lessonHistory', ${lessonHistory.idx})|"></button>
+				</div>
+				<div th:if="${lessonHistories.size() == 0}">수업 수강 기록이 없습니다.</div>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		const msg = /*[[${msg}]]*/"";
+	</script>
+	<script type="text/javascript" src="/js/modal.js"></script>
+	<script type="text/javascript" src="/js/lessonHistoryNew.js"></script>	
+</body>
+</html>

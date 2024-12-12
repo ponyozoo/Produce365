@@ -22,7 +22,7 @@ public class LessonController {
 	public String showLessonList(Model model) {
 		List<Lesson> lessons = lessonService.getLessons();
 		model.addAttribute("lessons", lessons);
-		model.addAttribute("lesson", new Lesson());
+		model.addAttribute("newLesson", new Lesson());
 		return "pages/lesson";
 	}
 	
@@ -43,7 +43,7 @@ public class LessonController {
 		if (res)
 			return "redirect:/lesson";
 		else {
-			model.addAttribute("msg", "삭제 실패");
+			model.addAttribute("msg", "등록 실패");
 			return "pages/lesson";
 		}
 	}

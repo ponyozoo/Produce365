@@ -15,7 +15,7 @@ function checkInput() {
 	}
 }
 
-if (msg != '') {
+if (msg.length !== 0) {
 	alert("문제가 발생했습니다. 다시 시도해주세요.");
 	location.href="/lesson";
 }
