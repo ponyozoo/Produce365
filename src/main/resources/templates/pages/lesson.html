@@ -8,28 +8,32 @@
 </head>
 <body>
 	<div th:insert="common/header"></div>
-	<div class="modal">
+	<div class="modal" id="newModal">
 	    <div class="modal_popup" th:insert="pages/lessonNew"></div>
+	</div>
+	<div class="modal" id="deleteModal">
+	    <div class="modal_popup" th:insert="common/deleteModal"></div>
 	</div>
 	<div id="content" class="d-flex">
 		<div th:insert="common/menu"></div>
 		<div id="rightBox">
-		 	<button id="newButton"></button>
+		 	<button id="newButton" th:onclick="openNewModal()"></button>
 		 	<div id="infoWrapper">
-		 		<div th:if="${lessons != null}" th:each="lesson : ${lessons}" class="d-flex justify-content-between align-items-center lessonInfo">
+		 		<div th:if="${lessons.size() != 0}" th:each="lesson : ${lessons}" class="d-flex justify-content-between align-items-center lessonInfo">
 					<div id="lessonCategory" th:text="${lesson.subject}"></div>
 					<div id="lessonTrainer" th:text="${lesson.trainer}"></div>
 					<div id="lessonTime" th:with="time=${lesson.time}">
 						<span th:text="${#numbers.formatDecimal(time, 0, 0)} + 시간"></span>
 						<span th:if="${time * 60 % 60 >= 1}" th:text="${#numbers.formatDecimal(time * 60 % 60, 0, 0)} + 분"></span>
 					</div>
-					<button id="deleteButton" type="button" th:onclick="|location.href='@{/lesson/delete(id=${lesson.id})}'|"></button>
+					<button id="deleteButton" type="button" th:onclick="|openDeleteModal('lesson', ${lesson.id})|"></button>
 				</div>
+				<div th:if="${lessons.size() == 0}">수업 정보가 없습니다.</div>
 			</div>
 		</div>
 	</div>
 	<script th:inline="javascript">
-		const msg = /*[[${msg}]]*/ "";
+		const msg = /*[[${msg}]]*/"";
 	</script>
 	<script type="text/javascript" src="/js/modal.js"></script>
 	<script type="text/javascript" src="/js/lessonNew.js"></script>	

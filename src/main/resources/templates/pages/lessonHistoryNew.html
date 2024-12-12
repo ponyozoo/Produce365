@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<form th:action="@{/lessonHistory/save}" method="post" th:object="${newLessonHistory}" id="form" class="d-flex flex-column justify-content-center align-items-center h-100 my-5">
+		<h3 id="title">수업 기록 추가</h3>
+		<select id="selectLesson" class="form-select" name="lesson">
+			<option th:if="${lessons.size() != 0}" th:each="lesson : ${lessons}" th:value="${lesson.id}" th:text="${lesson.subject}"></option>
+			<option th:if="${lessons.size() == 0}" th:value="0">수업이 없습니다.</option>
+		</select> 
+		<select id="selectTrainee" class="form-select" name="trainee">
+			<option th:if="${trainees.size() != 0}" th:each="trainee : ${trainees}" th:value="${trainee.id}" th:text="${trainee.name}"></option>						
+			<option th:if="${trainees.size() == 0}" th:value="0">연습생이 없습니다.</option>
+		</select> 
+		<input type="date" name="date" id="historyDate">
+		<div id="msg"></div>
+		<div class="modalButtons">
+			<button class="confirmButton" type="button" th:onclick="checkInput()">추가</button>
+			<button class="closeButton" type="button" th:onclick="closeNewModal()">닫기</button>
+		</div>
+	</form>
+</body>
+</html>

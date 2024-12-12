@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import com.produce365.trainee.Trainee;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -28,10 +29,10 @@ public class LessonHistory {
 	private int idx;
 	@Column(name = "LESSON_DATE")
 	private Date date;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "LESSON_ID")
 	private Lesson lesson;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "TRAINEE_ID")
 	private Trainee trainee;
 }
