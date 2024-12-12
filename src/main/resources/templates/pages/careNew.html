@@ -1,56 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/base :: base(~{::link})">
+<head th:insert="common/base :: base(~{::link})">
     <meta charset="UTF-8">
     <title>케어 페이지</title>
-    <style>
-        #title {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 70px;
-        }
-
-        #category, #cost {
-            width: 80%;
-            border: 1px solid #383838;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 10px 0;
-            font-size: 1.5em;
-        }
-
-        #msg {
-            color: #d62828;
-        }
-    </style>
 </head>
 <body>
-    <form th:action="@{/care}" method="post" id="f1" class="d-flex flex-column justify-content-center align-items-center h-100 my-5">
+    <form th:action="@{/care/save}" method="post" th:object="${care}" id="form" class="d-flex flex-column justify-content-center align-items-center h-100 my-5">
         <h3 id="title">새 케어 정보 등록</h3>
-        <input id="category" name="category" type="text" th:value="${care?.category}" placeholder="케어 항목을 입력해주세요." />
-        <input id="cost" name="cost" type="number" th:value="${care?.cost}" placeholder="케어 가격을 입력해주세요." />
+        <input id="category" name="category" type="text" placeholder="케어 항목을 입력해주세요." />
+        <input id="cost" name="cost" type="number" placeholder="케어 가격을 입력해주세요." />
         <div id="msg"></div>
         <div id="modalButtons">
-            <button id="saveButton" type="button" onclick="checkInput()">추가</button>
+            <button id="saveButton" type="button" th:onClick="checkInput()">추가</button>
             <button id="closeButton" type="button">닫기</button>
         </div>
     </form>
-
-    <script>
-        function checkInput() {
-            const category = document.getElementById("category").value;
-            const cost = document.getElementById("cost").value;
-            const msg = document.getElementById("msg");
-            const form = document.getElementById("f1");
-
-            if (category.trim() === "") {
-                msg.innerText = "케어 항목을 입력해주세요.";
-            } else if (cost.trim() === "" || parseFloat(cost) < 0) {
-                msg.innerText = "케어 가격을 정확히 입력해주세요.";
-            } else {
-                form.submit();
-            }
-        }
-    </script>
 </body>
 </html>
