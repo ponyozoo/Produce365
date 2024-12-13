@@ -3,24 +3,28 @@
 <head th:insert="common/base :: base(~{::link})">
     <meta charset="UTF-8">
     <title>케어 관리</title>
-    <link rel="stylesheet" type="text/css" href="/css/lesson.css">
+    <link rel="stylesheet" type="text/css" href="/css/care.css">
 	<link rel="stylesheet" type="text/css" href="/css/newModal.css">
 </head>
 <body>
     <div th:insert="common/header"/></div>
-	<div class="modal">
+	<div class="modal" id="newModal">
         <div class="modal_popup" th:insert="pages/careNew"></div>
     </div>
+    <div class="modal" id="deleteModal">
+	    <div class="modal_popup" th:insert="common/deleteModal"></div>
+	</div>
     <div id="content" class="d-flex">
         <div th:insert = "common/menu"></div>
         <div id="rightBox">
-            <button id="newButton"></button>
+            <button id="newButton" th:onclick="openNewModal()"></button>
             <div id="infoWrapper">
-                <div th:if="${cares != null}" th:each="care : ${cares}" class="d-flex justify-content-between align-items-center careInfo">
+                   <div th:if="${cares.size() != 0}" th:each="care : ${cares}" class="d-flex justify-content-between align-items-center careInfo">
                         <div id="careCategory" th:text="${care.category}"></div>
                         <div id="careCost" th:text="${care.cost}"></div>
-                            <button id="deleteButton" type="button" th:onclick="|location.href='@{/care/delete(id=${care.id})}'|"></button>
+                            <button class="deleteButton" type="button" th:onClick="|openDeleteModal('care', ${care.id})|"></button>
                         </div>
+                        <div th:if ="${cares.size() == 0}">케어 정보가 없습니다.</div> 
                     </div>
                 </div>
             </div>

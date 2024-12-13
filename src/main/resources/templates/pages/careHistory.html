@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/base :: base(~{::link})">
 <meta charset="UTF-8">
-<title>케어히스토리 리스트</title>
+<title>케어 기록</title>
+	<link rel="stylesheet" type="text/css" href="/css/care.css">
+	<link rel="stylesheet" type="text/css" href="/css/newModal.css">
 </head>
 <body>
-		
+	<div th:insert ="common/header"></div>
+	<div class = "modal" id="newModal">
+		<div class ="modal_popup" th:insert ="pages/careHistoryNew"></div>
+	</div>
+	<div class = "modal" id="deleteModal">
+	<div class="modal_popup" th:insert="common/deleteModal"></div>
+	</div>
+	<div id="content" class ="d-flex">
+		<div th:insert ="common/menu"></div>
+		<div id="rightBox">
+			<button id = "newButton" th:onclick ="openNewModal()"></button>
+			<div id="infoWrapper">
+				<div th:if="${careHistories.size() != 0}" th:each="careHistory : ${careHistories}" class="d-flex justify-content-between align-items-center careHistory">
+					<div id="careHistoryCareList" th:text="${careHistory.care.category}"></div>
+					<div id="careHistoryTrainee" th:text="${careHistory.trainee.name}"></div>
+					<div id="careHistoryDate" th:text="${careHistory.date}"></div>
+					<button class="deleteButton" type="button" th:onclick="|openDeleteModal('careHistory', ${careHistory.idx})|"></button>
+				</div>
+			<div th:if="${careHistories.size() == 0}">케어 기록이 없습니다.</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		const msg = /*[[${msg}]]*/"";
+	</script>
+	<script type="text/javascript" src="/js/modal.js"></script>
+	<script type="text/javascript" src="/js/careHistoryNew.js"></script>	
+</div>
 </body>
 </html>

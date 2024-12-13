@@ -1,62 +1,92 @@
  #title {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 70px;
+	font-size: 2.5em;
+	font-weight: bold;
+	margin-bottom: 70px;
 }
 
 #category, #cost {
-            width: 80%;
-            border: 1px solid #383838;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 10px 0;
-            font-size: 1.5em;
+     width: 80%;
+     border: 1px solid #383838;
+     border-radius: 20px;
+     padding: 20px;
+     margin: 10px 0;
+     font-size: 1.5em;
 }
 
 #msg {
-            color: #d62828;
+     color: #d62828;
 }
+
 #content {
-            margin-top: 130px;
+     margin-top: 130px;
 }
         
 #newButton {
-            background-image: url(/produce365/resources/newButton.png);
-            background-color: transparent;
-            background-size: cover;
-            border: none;
-            width: 50px;
-            height: 50px;
-            margin: 5px 5px 5px 15px;
+     background-image: url(../img/newButton.png);
+     background-color: transparent;
+     background-size: cover;
+     border: none;
+     width: 50px;
+     height: 50px;
+     margin: 5px 5px 5px 15px;
 }
         
 #rightBox {
-            width: 100%;
+     width: 100%;
 }
         
 #infoWrapper {
-            margin: 15px 150px 50px 15px;
+     margin: 15px 150px 50px 15px;
 }
         
 .careInfo {
-            font-size: 1.5em;
-            font-weight: bold;
-            border: 1px solid lightgrey;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 10px 0;
+     font-size: 1.5em;
+     font-weight: bold;
+     border: 1px solid lightgrey;
+     border-radius: 10px;
+     padding: 10px;
+     margin: 10px 0;
 }
         
 #careCategory {
-            margin-left: 20px;
+     margin-left: 20px;
         }
         
-#deleteButton {
-            background-image: url(/produce365/resources/deleteButton.png);
-            background-color: transparent;
-            background-size: cover;
-            border: none;
-            width: 40px;
-            height: 40px;
-            margin: 5px 20px 5px 50px;
+.deleteButton {
+     background-image: url(../img/deleteButton.png);
+     background-color: transparent;
+     background-size: cover;
+     border: none;
+     width: 40px;
+     height: 40px;
+     margin: 5px 20px 5px 50px;
         }
+        
+.careHistory {
+	 font-size: 1.5em;
+	 font-weight: bold;
+	 border: 1px solid lightgrey;
+	 border-radius: 10px;
+	 padding: 10px;
+	 margin: 10px 0;
+}
+
+#careHistoryCareList {
+	 width: 30%;
+	 margin-left: 20px;
+}
+
+#lesssonHistoryTrainee {
+	 width: 20%;
+}
+
+#lessonHistoryDate {
+	 width: 20%;
+}
+
+#form select {
+	 width: 60%;
+	 padding: 15px 20px;
+	 margin: 10px 0;
+	 font-size: 1.3em;
+}
