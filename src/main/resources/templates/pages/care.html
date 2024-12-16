@@ -20,8 +20,8 @@
             <button id="newButton" th:onclick="openNewModal()"></button>
             <div id="infoWrapper">
                    <div th:if="${cares.size() != 0}" th:each="care : ${cares}" class="d-flex justify-content-between align-items-center careInfo">
-                        <div id="careCategory" th:text="${care.category}"></div>
-                        <div id="careCost" th:text="${care.cost}"></div>
+                        <div class="careCategory" th:text="${care.category}"></div>
+                        <div class="careCost" th:text="${#numbers.formatInteger(care.cost, 0, 'COMMA')}"></div>
                             <button class="deleteButton" type="button" th:onClick="|openDeleteModal('care', ${care.id})|"></button>
                         </div>
                         <div th:if ="${cares.size() == 0}">케어 정보가 없습니다.</div> 
