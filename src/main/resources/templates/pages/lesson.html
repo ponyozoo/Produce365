@@ -20,13 +20,13 @@
 		 	<button id="newButton" th:onclick="openNewModal()"></button>
 		 	<div id="infoWrapper">
 		 		<div th:if="${lessons.size() != 0}" th:each="lesson : ${lessons}" class="d-flex justify-content-between align-items-center lessonInfo">
-					<div id="lessonCategory" th:text="${lesson.subject}"></div>
-					<div id="lessonTrainer" th:text="${lesson.trainer}"></div>
-					<div id="lessonTime" th:with="time=${lesson.time}">
+					<div class="lessonCategory" th:text="${lesson.subject}"></div>
+					<div class="lessonTrainer" th:text="${lesson.trainer}"></div>
+					<div class="lessonTime" th:with="time=${lesson.time}">
 						<span th:text="${#numbers.formatDecimal(time, 0, 0)} + 시간"></span>
 						<span th:if="${time * 60 % 60 >= 1}" th:text="${#numbers.formatDecimal(time * 60 % 60, 0, 0)} + 분"></span>
 					</div>
-					<button id="deleteButton" type="button" th:onclick="|openDeleteModal('lesson', ${lesson.id})|"></button>
+					<button class="deleteButton" type="button" th:onclick="|openDeleteModal('lesson', ${lesson.id})|"></button>
 				</div>
 				<div th:if="${lessons.size() == 0}">수업 정보가 없습니다.</div>
 			</div>

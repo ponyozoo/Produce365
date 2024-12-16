@@ -20,10 +20,10 @@
 			<button id="newButton" th:onclick="openNewModal()"></button>
 			<div id="infoWrapper">
 				<div th:if="${lessonHistories.size() != 0}" th:each="lessonHistory : ${lessonHistories}" class="d-flex justify-content-between align-items-center lessonHistory">
-					<div id="lessonHistorySubject" th:text="${lessonHistory.lesson.subject}"></div>
-					<div id="lesssonHistoryTrainee" th:text="${lessonHistory.trainee.name}"></div>
-					<div id="lessonHistoryDate" th:text="${lessonHistory.date}"></div>
-					<button id="deleteButton" type="button" th:onclick="|openDeleteModal('lessonHistory', ${lessonHistory.idx})|"></button>
+					<div class="lessonHistorySubject" th:text="${lessonHistory.lesson.subject}"></div>
+					<div class="lesssonHistoryTrainee" th:text="${lessonHistory.trainee.name}"></div>
+					<div class="lessonHistoryDate" th:text="${lessonHistory.date}"></div>
+					<button class="deleteButton" type="button" th:onclick="|openDeleteModal('lessonHistory', ${lessonHistory.idx})|"></button>
 				</div>
 				<div th:if="${lessonHistories.size() == 0}">수업 수강 기록이 없습니다.</div>
 			</div>

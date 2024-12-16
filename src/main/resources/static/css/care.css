@@ -1,22 +1,3 @@
- #title {
-	font-size: 2.5em;
-	font-weight: bold;
-	margin-bottom: 70px;
-}
-
-#category, #cost {
-     width: 80%;
-     border: 1px solid #383838;
-     border-radius: 20px;
-     padding: 20px;
-     margin: 10px 0;
-     font-size: 1.5em;
-}
-
-#msg {
-     color: #d62828;
-}
-
 #content {
      margin-top: 130px;
 }
@@ -38,6 +19,8 @@
 #infoWrapper {
      margin: 15px 150px 50px 15px;
 }
+
+/*care.html*/
         
 .careInfo {
      font-size: 1.5em;
@@ -47,10 +30,15 @@
      padding: 10px;
      margin: 10px 0;
 }
-        
-#careCategory {
-     margin-left: 20px;
-        }
+
+.careCategory {
+	width: 30%;
+	margin-left: 20px;
+}
+
+.careCost {
+	width: 20%;
+}
         
 .deleteButton {
      background-image: url(../img/deleteButton.png);
@@ -60,8 +48,21 @@
      width: 40px;
      height: 40px;
      margin: 5px 20px 5px 50px;
-        }
-        
+}
+
+/*careNew.html*/
+
+#category, #cost {
+     width: 80%;
+     border: 1px solid #383838;
+     border-radius: 20px;
+     padding: 20px;
+     margin: 10px 0;
+     font-size: 1.5em;
+}
+
+/*careHistory.html*/
+
 .careHistory {
 	 font-size: 1.5em;
 	 font-weight: bold;
@@ -71,16 +72,16 @@
 	 margin: 10px 0;
 }
 
-#careHistoryCareList {
+.careHistoryCategory {
 	 width: 30%;
 	 margin-left: 20px;
 }
 
-#lesssonHistoryTrainee {
+.careHistoryTrainee {
 	 width: 20%;
 }
 
-#lessonHistoryDate {
+.careHistoryDate {
 	 width: 20%;
 }
 
